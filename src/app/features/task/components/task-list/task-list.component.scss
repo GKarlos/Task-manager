@@ -1,0 +1,27 @@
+.task-list {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  width: 20rem;
+}
+
+.task-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.task-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.task-items {
+  display: flex;
+  flex-direction: column;
+}
+
+.icon {
+  margin: 0 0 16px;
+}

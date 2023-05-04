@@ -1,0 +1,19 @@
+<div class="task-list">
+  <div class="task-header">
+    <h1 data-testid="title">Task List</h1>
+    <mat-icon
+      data-testid="add-button"
+      class="icon pointer ft-20 sz-20"
+      (click)="addTask()"
+      >add</mat-icon
+    >
+  </div>
+  <div class="task-items">
+    <app-task-item
+      *ngFor="let task of taskList"
+      [task]="task"
+      (onTaskEdited)="onTaskEdited($event)"
+      (onTaskDeleted)="onTaskDeleted($event)"
+    ></app-task-item>
+  </div>
+</div>

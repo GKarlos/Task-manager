@@ -1,0 +1,76 @@
+.task-item {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.task-actions {
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.task-content {
+  word-wrap: break-word;
+  margin-bottom: 0;
+  padding: 0 0.5rem;
+}
+
+.task-actions > .icon {
+  cursor: pointer;
+  font-size: 1.6rem;
+  size: 1.6rem;
+}
+
+/* Estilos específicos para dispositivos de 375px a 767px */
+@media (max-width: 767px) {
+  .task-actions > .icon {
+    font-size: 1.4rem;
+    size: 1.4rem;
+  }
+
+  .task-content > p {
+    font-size: 0.9rem;
+  }
+}
+
+/* Estilos específicos para dispositivos de 768px a 1023px */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .task-actions > .icon {
+    font-size: 1.5rem;
+    size: 1.5rem;
+  }
+
+  .task-content > p {
+    font-size: 1rem;
+  }
+}
+
+/* Estilos específicos para dispositivos de 1024px a 1279px */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .task-actions > .icon {
+    font-size: 1.6rem;
+    size: 1.6rem;
+  }
+
+  .task-content > p {
+    font-size: 1.1rem;
+  }
+}
+
+/* Estilos específicos para dispositivos de 1280px em diante */
+@media (min-width: 1280px) {
+  .task-actions > .icon {
+    font-size: 1.8rem;
+    size: 1.8rem;
+  }
+
+  .task-content > p {
+    font-size: 1.2rem;
+  }
+}
