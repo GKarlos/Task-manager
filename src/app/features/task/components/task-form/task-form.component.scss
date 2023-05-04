@@ -25,10 +25,39 @@
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  margin-bottom: 10px;
 
   &:focus {
     border-color: #80bdff;
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+}
+
+/* Estilos específicos para dispositivos de 375px a 767px */
+@media (max-width: 767px) {
+  .form-group {
+    font-size: 1.4rem;
+  }
+}
+
+/* Estilos específicos para dispositivos de 768px a 1023px */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .form-group {
+    font-size: 1.5rem;
+  }
+}
+
+/* Estilos específicos para dispositivos de 1024px a 1279px */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .form-group {
+    font-size: 1.6rem;
+  }
+}
+
+/* Estilos específicos para dispositivos de 1280px em diante */
+@media (min-width: 1280px) {
+  .form-group {
+    font-size: 1.8rem;
   }
 }
