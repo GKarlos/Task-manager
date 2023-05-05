@@ -1,0 +1,16 @@
+$big-font-size: clamp(1.8rem, 1.5625vw, 2.2rem); //20px
+$medium-font-size: clamp(1.4rem, 1.25vw, 1.8rem); //16px
+$small-font-size: clamp(1rem, 0.9375vw, 1.4rem); //12px
+$icon-size: clamp(1.4rem, 1.25vw, 1.8rem);
+
+.ft-small {
+  font-size: $small-font-size;
+}
+
+.ft-medium {
+  font-size: $medium-font-size;
+}
+
+.ft-big {
+  font-size: $big-font-size;
+}
