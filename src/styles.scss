@@ -1,13 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
-@import "styles/form";
-@import "styles/tipografia";
-@import "styles/util";
-@import "styles/tamanhos";
-@import "styles/layout";
-
-body {
-  background-color: #f0f0f0;
-}
+@import "form";
+@import "tipografia";
+@import "util";
+@import "tamanhos";
+@import "layout";
+@import "colors";
 
 html,
 body {
@@ -17,4 +14,9 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: $text;
+}
+
+mat-icon {
+  color: $primary;
 }
