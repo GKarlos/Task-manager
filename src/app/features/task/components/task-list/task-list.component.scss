@@ -1,7 +1,10 @@
+@import "tipography";
+@import "colors";
+
 $list-background: #eaecee;
 
 .task-list {
-  border: 1px solid #ccc;
+  border: 0.1rem solid $text-secondary;
   padding: 1rem;
   border-radius: 0.5rem;
   width: 23rem;
@@ -15,16 +18,12 @@ $list-background: #eaecee;
   margin-bottom: 1rem;
 }
 
-.task-header h2 {
-  margin: 0;
-  font-size: 1.2rem;
-}
-
 .task-items {
   display: flex;
   flex-direction: column;
 }
 
 .icon {
-  margin: 0 0 16px;
+  font-size: $big-font-size;
+  size: $big-font-size;
 }
