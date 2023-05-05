@@ -4,7 +4,7 @@ import { TaskRoutingModule } from './task-routing.module';
 import { TaskListComponent } from './components/task-list/task-list.component';
 import { TaskItemComponent } from './components/task-item/task-item.component';
 import { TaskFormComponent } from './components/task-form/task-form.component';
-import { ContainerTaskComponent } from './containers/container-task/container-task.component';
+import { ContainerTaskListComponent } from './containers/container-task/container-task-list.component';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -17,7 +17,7 @@ import { SharedModule } from '@shared/shared.module';
     TaskListComponent,
     TaskItemComponent,
     TaskFormComponent,
-    ContainerTaskComponent,
+    ContainerTaskListComponent,
   ],
   imports: [
     CommonModule,
@@ -29,6 +29,6 @@ import { SharedModule } from '@shared/shared.module';
     SharedModule,
     MatCheckboxModule,
   ],
-  exports: [ContainerTaskComponent],
+  exports: [ContainerTaskListComponent],
 })
 export class TaskModule {}
