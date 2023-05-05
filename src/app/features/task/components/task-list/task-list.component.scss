@@ -1,8 +1,11 @@
+$list-background: #eaecee;
+
 .task-list {
   border: 1px solid #ccc;
   padding: 1rem;
   border-radius: 0.5rem;
-  width: 20rem;
+  width: 23rem;
+  background: $list-background;
 }
 
 .task-header {
