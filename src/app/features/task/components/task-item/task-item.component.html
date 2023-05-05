@@ -12,7 +12,7 @@
       <input
         data-testid="task-checkbox"
         type="checkbox"
-        class="icon"
+        class="icon checkbox"
         [(ngModel)]="isComplete"
       />
       <mat-icon
@@ -24,8 +24,10 @@
       <mat-icon class="icon ml-8" (click)="deleteTask()">delete</mat-icon>
     </div>
     <div class="task-content">
-      <p data-testid="task-title">{{ task.title }}</p>
-      <p *ngIf="isExpanded" data-testid="task-description">
+      <p data-testid="task-title" class="ft-medium">
+        {{ task.title }}
+      </p>
+      <p *ngIf="isExpanded" data-testid="task-description" class="ft-small">
         {{ task.description }}
       </p>
     </div>
