@@ -12,6 +12,7 @@ export class TaskDetailsComponent {
   @Output() deleteTask = new EventEmitter<Task>();
 
   onEditTask() {
+    // handle with dialog
     this.editTask.emit(this.task);
   }
 

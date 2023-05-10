@@ -2,9 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TaskItemComponent } from './task-item.component';
 import { TaskModule } from '@task/task.module';
-import { TaskFormComponent } from '../task-form/task-form.component';
 import { MatDialog } from '@angular/material/dialog';
-import { of } from 'rxjs';
 import { TEST_TASK } from '@task/constants/task-testing.constants';
 
 describe('TaskItemComponent', () => {
@@ -42,32 +40,12 @@ describe('TaskItemComponent', () => {
     );
   });
 
-  it('should open the dialog with the correct data when edit button is clicked', () => {
-    const dialogRefSpy = jasmine.createSpyObj('MatDialogRef', ['afterClosed']);
-    dialogRefSpy.afterClosed.and.returnValue(of(component.task));
+  it('should emit the deleteTask event when deleteTask is called', () => {
+    spyOn(component.deleteTask, 'emit');
 
-    spyOn(dialog, 'open').and.returnValue(dialogRefSpy);
+    component.onDeleteTask();
 
-    const editButton = fixture.debugElement.query(
-      By.css('[data-testid="edit-button"]')
-    ).nativeElement;
-
-    editButton.click();
-
-    expect(dialog.open).toHaveBeenCalledWith(
-      TaskFormComponent,
-      jasmine.objectContaining({
-        data: TEST_TASK,
-      })
-    );
-  });
-
-  it('should emit the onTaskDeleted event when deleteTask is called', () => {
-    spyOn(component.onTaskDeleted, 'emit');
-
-    component.deleteTask();
-
-    expect(component.onTaskDeleted.emit).toHaveBeenCalledWith(component.task);
+    expect(component.deleteTask.emit).toHaveBeenCalledWith(component.task);
   });
 
   it('should render the description when it is isExpanded', () => {

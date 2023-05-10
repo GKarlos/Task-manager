@@ -1,7 +1,10 @@
 <div class="task-list" cdkDrag cdkDragBoundary=".container-task-list">
   <div class="task-header">
     <span data-testid="title" class="ft-big">Task List</span>
-    <mat-icon data-testid="add-button" class="icon pointer" (click)="addTask()"
+    <mat-icon
+      data-testid="add-button"
+      class="icon pointer"
+      (click)="onAddTask()"
       >add</mat-icon
     >
   </div>
@@ -9,8 +12,7 @@
     <app-task-item
       *ngFor="let task of taskList"
       [task]="task"
-      (onTaskEdited)="onTaskEdited($event)"
-      (onTaskDeleted)="onTaskDeleted($event)"
+      (deleteTask)="onDeleteTask($event)"
     ></app-task-item>
   </div>
 </div>

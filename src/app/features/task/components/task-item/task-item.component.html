@@ -1,29 +1,25 @@
 <ng-container *ngIf="task">
   <div class="task-item">
-    <div class="task-actions">
-      <mat-icon
-        data-testid="task-expand"
-        class="icon"
-        (click)="toggleExpansion()"
-        >{{
-          isExpanded ? "keyboard_arrow_up" : "keyboard_arrow_down"
-        }}</mat-icon
-      >
-      <input
-        data-testid="task-checkbox"
-        type="checkbox"
-        class="icon checkbox"
-        [(ngModel)]="isComplete"
-      />
-      <mat-icon
-        data-testid="edit-button"
-        class="icon ml-auto"
-        (click)="editTask()"
-        >edit</mat-icon
-      >
-      <mat-icon class="icon ml-8" (click)="deleteTask()">delete</mat-icon>
-    </div>
-    <div class="task-content">
+    <header>
+      <div class="actions">
+        <mat-icon
+          data-testid="task-expand"
+          class="icon mr-auto"
+          (click)="toggleExpansion()"
+          >{{
+            isExpanded ? "keyboard_arrow_up" : "keyboard_arrow_down"
+          }}</mat-icon
+        >
+        <input
+          data-testid="task-checkbox"
+          type="checkbox"
+          class="icon"
+          [(ngModel)]="isComplete"
+        />
+        <mat-icon class="icon" (click)="onDeleteTask()">delete</mat-icon>
+      </div>
+    </header>
+    <div class="content">
       <p data-testid="task-title" class="ft-medium">
         {{ task.title }}
       </p>

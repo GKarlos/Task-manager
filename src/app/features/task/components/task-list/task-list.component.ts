@@ -1,5 +1,5 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Task } from '@task/models/task';
 import { TaskFormComponent } from '@task/components/task-form/task-form.component';
 import { Subscription } from 'rxjs';
@@ -12,10 +12,12 @@ import { Subscription } from 'rxjs';
 export class TaskListComponent {
   @Input() taskList: Task[] = [];
   private dialogRefSubscription: Subscription | undefined;
+  @Output() deleteTask = new EventEmitter<Task>();
+  @Output() addTask = new EventEmitter<Task>();
 
   constructor(public dialog: MatDialog) {}
 
-  addTask() {
+  onAddTask() {
     if (this.dialogRefSubscription) {
       this.dialogRefSubscription.unsubscribe();
     }
@@ -23,21 +25,11 @@ export class TaskListComponent {
     this.dialogRefSubscription = dialogRef
       .afterClosed()
       .subscribe((newTask: Task | undefined) => {
-        if (newTask) this.taskList.push(newTask);
+        if (newTask) this.addTask.emit(newTask);
       });
   }
 
-  onTaskEdited(task: Task) {
-    const taskIndex = this.taskList.findIndex((t) => t.id === task.id);
-    if (taskIndex >= 0) {
-      this.taskList[taskIndex] = task;
-    }
-  }
-
-  onTaskDeleted(task: Task) {
-    const taskIndex = this.taskList.findIndex((t) => t.id === task.id);
-    if (taskIndex >= 0) {
-      this.taskList.splice(taskIndex, 1);
-    }
+  onDeleteTask(task: Task) {
+    this.deleteTask.emit(task);
   }
 }

@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Task } from '@task/models/task';
-import { TaskFormComponent } from '@task/components/task-form/task-form.component';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-task-item',
@@ -22,9 +20,7 @@ export class TaskItemComponent {
     this.isComplete = this._task ? this._task.isComplete : false;
   }
 
-  @Output() onTaskEdited = new EventEmitter<Task>();
-  @Output() onTaskDeleted = new EventEmitter<Task>();
-  private dialogRefSubscription: Subscription | undefined;
+  @Output() deleteTask = new EventEmitter<Task>();
 
   isExpanded = false;
   isComplete = false;
@@ -35,30 +31,7 @@ export class TaskItemComponent {
     this.isExpanded = !this.isExpanded;
   }
 
-  editTask(): void {
-    if (this.dialogRefSubscription) {
-      this.dialogRefSubscription.unsubscribe();
-    }
-
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = this.task;
-
-    const dialogRef = this.dialog.open(TaskFormComponent, dialogConfig);
-
-    this.dialogRefSubscription = dialogRef
-      .afterClosed()
-      .subscribe((editedTask: Task | undefined) => {
-        if (editedTask) {
-          this.task = editedTask;
-          this.onTaskEdited.emit(this.task);
-        }
-      });
-  }
-
-  deleteTask(): void {
-    this.onTaskDeleted.emit(this.task);
-  }
-  onTaskisCompleteChange(): void {
-    // Implemente ações quando o status de conclusão da tarefa for alterado, como salvar o estado atualizado da tarefa
+  onDeleteTask(): void {
+    this.deleteTask.emit(this.task);
   }
 }
