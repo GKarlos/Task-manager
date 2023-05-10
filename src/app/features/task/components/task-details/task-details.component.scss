@@ -26,6 +26,10 @@ $container-background: #eaecee;
       margin-left: auto;
       display: flex;
       gap: 1rem;
+
+      mat-icon {
+        cursor: pointer;
+      }
     }
   }
 
