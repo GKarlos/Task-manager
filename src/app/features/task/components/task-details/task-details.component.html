@@ -1,0 +1,12 @@
+<div class="task-details-container" cdkDrag>
+  <header>
+    <h1>{{ task.title }}</h1>
+    <div class="actions">
+      <mat-icon (click)="onEditTask()">edit</mat-icon>
+      <mat-icon (click)="onDeleteTask()">delete</mat-icon>
+    </div>
+  </header>
+  <div class="task-description">
+    <p>{{ task.description }}</p>
+  </div>
+</div>
