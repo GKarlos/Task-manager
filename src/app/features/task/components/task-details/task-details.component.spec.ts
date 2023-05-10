@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TaskDetailsComponent } from './task-details.component';
-import { Task } from '@task/models/task';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TEST_TASK } from '@task/constants/task-testing.constants';
+import { TaskModule } from '@task/task.module';
 
 describe('TaskDetailsComponent', () => {
   let component: TaskDetailsComponent;
@@ -12,7 +12,7 @@ describe('TaskDetailsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BrowserAnimationsModule, DragDropModule],
+      imports: [BrowserAnimationsModule, DragDropModule, TaskModule],
       declarations: [TaskDetailsComponent],
     }).compileComponents();
   });
@@ -31,7 +31,7 @@ describe('TaskDetailsComponent', () => {
   it('should emit editTask event when edit button is clicked', () => {
     spyOn(component.editTask, 'emit');
     const editButton = fixture.debugElement.query(
-      By.css('.actions mat-icon:first-child')
+      By.css('[data-testid="task-edit"]')
     );
     editButton.triggerEventHandler('click', null);
     expect(component.editTask.emit).toHaveBeenCalledWith(component.task);
@@ -40,16 +40,18 @@ describe('TaskDetailsComponent', () => {
   it('should emit deleteTask event when delete button is clicked', () => {
     spyOn(component.deleteTask, 'emit');
     const deleteButton = fixture.debugElement.query(
-      By.css('.actions mat-icon:last-child')
+      By.css('[data-testid="task-delete"]')
     );
     deleteButton.triggerEventHandler('click', null);
     expect(component.deleteTask.emit).toHaveBeenCalledWith(component.task);
   });
 
   it('should display the task title and description', () => {
-    const titleElement = fixture.debugElement.query(By.css('h1')).nativeElement;
+    const titleElement = fixture.debugElement.query(
+      By.css('[data-testid="task-title"]')
+    ).nativeElement;
     const descriptionElement = fixture.debugElement.query(
-      By.css('.task-description p')
+      By.css('[data-testid="task-description"]')
     ).nativeElement;
 
     expect(titleElement.textContent).toContain(component.task.title);

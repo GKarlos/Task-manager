@@ -10,25 +10,26 @@
   flex-direction: column;
 }
 
-.task-actions {
-  margin-bottom: 0.8rem;
+header {
   display: flex;
-  flex-direction: row;
   align-items: center;
+
+  .actions {
+    display: flex;
+    width: 100%;
+    gap: 0.8rem;
+  }
+  margin-bottom: 0.8rem;
 }
 
-.task-content {
+.content {
   word-wrap: break-word;
   margin-bottom: 0;
   padding: 0 0.5rem;
 }
 
-.task-actions > .icon {
+.actions > .icon {
   cursor: pointer;
   font-size: $big-font-size;
   size: $big-font-size;
-}
-
-.checkbox {
-  margin: 0rem 0.3rem 0.8rem 0.3rem;
 }

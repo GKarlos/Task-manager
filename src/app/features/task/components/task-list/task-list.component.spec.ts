@@ -51,7 +51,7 @@ describe('TaskListComponent', () => {
   });
 
   it('should render the correct number of task items', () => {
-    component.taskList = [testTask, testTask] as Task[];
+    component.taskList = testTaskList;
     fixture.detectChanges();
     const taskItems = fixture.debugElement.queryAll(
       By.css('.task-items app-task-item')
@@ -59,22 +59,21 @@ describe('TaskListComponent', () => {
     expect(taskItems.length).toBe(2);
   });
 
-  it('should call addTask method when + is clicked', () => {
-    spyOn(component, 'addTask');
+  it('should call onAddTask method when + is clicked', () => {
+    spyOn(component, 'onAddTask');
 
     addButton.click();
-    expect(component.addTask).toHaveBeenCalled();
+    expect(component.onAddTask).toHaveBeenCalled();
   });
 
-  it('should add a new task to the task list when dialogRef is closed', () => {
-    component.taskList = [] as Task[];
-
+  it('should emit addTask with the correct data when dialogRef is closed', () => {
     const dialogRefSpy = jasmine.createSpyObj('MatDialogRef', [
       'afterClosed',
       'close',
     ]);
     dialogRefSpy.afterClosed.and.returnValue(of(testTask));
     spyOn(dialog, 'open').and.returnValue(dialogRefSpy);
+    spyOn(component.addTask, 'emit');
 
     addButton.click();
 
@@ -82,64 +81,17 @@ describe('TaskListComponent', () => {
 
     dialogRefSpy.close();
 
-    expect(component.taskList.length).toBe(1);
-    expect(component.taskList[0]).toEqual(testTask);
+    expect(component.addTask.emit).toHaveBeenCalledWith(testTask);
   });
 
-  it('should update a task in the task list when onTaskEdited is called', () => {
-    component.taskList = testTaskList;
-
-    const updatedTask: Task = {
-      id: '1',
-      title: 'Updated Task 1',
-      description: 'Updated Task 1 description',
-      isComplete: false,
-      isExpanded: false,
-    };
-
-    component.onTaskEdited(updatedTask);
-
-    expect(component.taskList[0]).toEqual(updatedTask);
-  });
-
-  it('should not modify the task list when onTaskEdited is called with an invalid task', () => {
-    const initialTaskList: Task[] = testTaskList;
-
-    component.taskList = [...initialTaskList];
-
-    const nonExistentTask: Task = {
-      id: '3',
-      title: 'Non-Existent Task',
-      description: 'Non-Existent Task description',
-      isComplete: false,
-      isExpanded: false,
-    };
-
-    component.onTaskEdited(nonExistentTask);
-
-    expect(component.taskList).toEqual(initialTaskList);
-  });
-
-  it('should delete a task from the task list when onTaskDeleted is called', () => {
+  it('should emit deleteTask with the correct data when onDeleteTask is called', () => {
     const taskToDelete = testTask;
 
-    component.taskList = [...testTaskList, testTask] as Task[];
+    spyOn(component.deleteTask, 'emit');
 
-    component.onTaskDeleted(taskToDelete);
+    component.onDeleteTask(taskToDelete);
 
-    expect(component.taskList.length).toBe(2);
-    expect(component.taskList).not.toContain(taskToDelete);
-    expect(component.taskList).toEqual(testTaskList);
-  });
-
-  it('should not modify the task list when onTaskDeleted is called with an invalid task', () => {
-    const initialTaskList = testTaskList;
-
-    component.taskList = [...initialTaskList];
-
-    component.onTaskDeleted(testTask);
-
-    expect(component.taskList).toEqual(initialTaskList);
+    expect(component.deleteTask.emit).toHaveBeenCalledWith(testTask);
   });
 
   it('should not add a task to the task list when dialogRef is closed without saving', () => {
@@ -151,6 +103,7 @@ describe('TaskListComponent', () => {
     ]);
     dialogRefSpy.afterClosed.and.returnValue(of(undefined));
     spyOn(dialog, 'open').and.returnValue(dialogRefSpy);
+    spyOn(component.deleteTask, 'emit');
 
     addButton.click();
 
@@ -158,6 +111,6 @@ describe('TaskListComponent', () => {
 
     dialogRefSpy.close();
 
-    expect(component.taskList.length).toBe(0);
+    expect(component.deleteTask.emit).toHaveBeenCalledTimes(0);
   });
 });

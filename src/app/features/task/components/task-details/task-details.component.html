@@ -1,12 +1,14 @@
-<div class="task-details-container" cdkDrag>
+<div class="task-container" cdkDrag>
   <header>
-    <h1>{{ task.title }}</h1>
+    <h1 data-testid="task-title">{{ task.title }}</h1>
     <div class="actions">
-      <mat-icon (click)="onEditTask()">edit</mat-icon>
-      <mat-icon (click)="onDeleteTask()">delete</mat-icon>
+      <mat-icon data-testid="task-edit" (click)="onEditTask()">edit</mat-icon>
+      <mat-icon data-testid="task-delete" (click)="onDeleteTask()"
+        >delete</mat-icon
+      >
     </div>
   </header>
   <div class="task-description">
-    <p>{{ task.description }}</p>
+    <p data-testid="task-description">{{ task.description }}</p>
   </div>
 </div>
