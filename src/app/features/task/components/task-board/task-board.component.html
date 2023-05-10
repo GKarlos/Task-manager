@@ -1,0 +1,13 @@
+<app-task-list
+  (addTask)="handleAddTask($event)"
+  (deleteTask)="handleDeleteTask($event)"
+  [taskList]="tasks"
+>
+</app-task-list>
+
+<app-task-details
+  *ngFor="let task of tasks"
+  [task]="task"
+  (editTask)="handleEditTask($event)"
+  (deleteTask)="handleDeleteTask($event)"
+></app-task-details>

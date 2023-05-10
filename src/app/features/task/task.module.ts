@@ -13,6 +13,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SharedModule } from '@shared/shared.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TaskDetailsComponent } from './components/task-details/task-details.component';
+import { TaskBoardComponent } from './components/task-board/task-board.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { TaskDetailsComponent } from './components/task-details/task-details.com
     TaskFormComponent,
     ContainerTaskListComponent,
     TaskDetailsComponent,
+    TaskBoardComponent,
   ],
   imports: [
     CommonModule,
