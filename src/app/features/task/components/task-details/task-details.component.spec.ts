@@ -28,13 +28,13 @@ describe('TaskDetailsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should emit editTask event when edit button is clicked', () => {
-    spyOn(component.editTask, 'emit');
+  it('should emit openEditDialog event when edit button is clicked', () => {
+    spyOn(component.openEditDialog, 'emit');
     const editButton = fixture.debugElement.query(
       By.css('[data-testid="task-edit"]')
     );
     editButton.triggerEventHandler('click', null);
-    expect(component.editTask.emit).toHaveBeenCalledWith(component.task);
+    expect(component.openEditDialog.emit).toHaveBeenCalledWith(component.task);
   });
 
   it('should emit deleteTask event when delete button is clicked', () => {

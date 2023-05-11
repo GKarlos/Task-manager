@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { TEST_TASK } from '@task/constants/task-testing.constants';
 import { Task } from '@task/models/task';
+import { TaskFormComponent } from '@task/components/task-form/task-form.component';
 
 @Component({
   selector: 'app-task-board',
@@ -9,6 +11,8 @@ import { Task } from '@task/models/task';
 })
 export class TaskBoardComponent {
   tasks: Task[] = [TEST_TASK];
+
+  constructor(public dialog: MatDialog) {}
 
   handleAddTask(task: Task) {
     this.tasks.push(task);
@@ -26,5 +30,21 @@ export class TaskBoardComponent {
     if (taskIndex >= 0) {
       this.tasks.splice(taskIndex, 1);
     }
+  }
+
+  openTaskDialog(task?: Task) {
+    const dialogRef = this.dialog.open(TaskFormComponent, {
+      data: task,
+    });
+
+    dialogRef.afterClosed().subscribe((result: Task | undefined) => {
+      if (result) {
+        if (task) {
+          this.handleEditTask(result);
+        } else {
+          this.handleAddTask(result);
+        }
+      }
+    });
   }
 }

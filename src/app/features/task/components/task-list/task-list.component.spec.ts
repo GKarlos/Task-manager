@@ -59,29 +59,12 @@ describe('TaskListComponent', () => {
     expect(taskItems.length).toBe(2);
   });
 
-  it('should call onAddTask method when + is clicked', () => {
-    spyOn(component, 'onAddTask');
-
-    addButton.click();
-    expect(component.onAddTask).toHaveBeenCalled();
-  });
-
-  it('should emit addTask with the correct data when dialogRef is closed', () => {
-    const dialogRefSpy = jasmine.createSpyObj('MatDialogRef', [
-      'afterClosed',
-      'close',
-    ]);
-    dialogRefSpy.afterClosed.and.returnValue(of(testTask));
-    spyOn(dialog, 'open').and.returnValue(dialogRefSpy);
-    spyOn(component.addTask, 'emit');
+  it('should emit openAddDialog event when + is clicked', () => {
+    spyOn(component.openAddDialog, 'emit');
 
     addButton.click();
 
-    expect(dialog.open).toHaveBeenCalled();
-
-    dialogRefSpy.close();
-
-    expect(component.addTask.emit).toHaveBeenCalledWith(testTask);
+    expect(component.openAddDialog.emit).toHaveBeenCalled();
   });
 
   it('should emit deleteTask with the correct data when onDeleteTask is called', () => {
@@ -92,25 +75,5 @@ describe('TaskListComponent', () => {
     component.onDeleteTask(taskToDelete);
 
     expect(component.deleteTask.emit).toHaveBeenCalledWith(testTask);
-  });
-
-  it('should not add a task to the task list when dialogRef is closed without saving', () => {
-    component.taskList = [] as Task[];
-
-    const dialogRefSpy = jasmine.createSpyObj('MatDialogRef', [
-      'afterClosed',
-      'close',
-    ]);
-    dialogRefSpy.afterClosed.and.returnValue(of(undefined));
-    spyOn(dialog, 'open').and.returnValue(dialogRefSpy);
-    spyOn(component.deleteTask, 'emit');
-
-    addButton.click();
-
-    expect(dialog.open).toHaveBeenCalled();
-
-    dialogRefSpy.close();
-
-    expect(component.deleteTask.emit).toHaveBeenCalledTimes(0);
   });
 });

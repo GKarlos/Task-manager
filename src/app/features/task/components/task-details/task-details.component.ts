@@ -8,15 +8,14 @@ import { Task } from '@task/models/task';
 })
 export class TaskDetailsComponent {
   @Input() task!: Task;
-  @Output() editTask = new EventEmitter<Task>();
   @Output() deleteTask = new EventEmitter<Task>();
-
-  onEditTask() {
-    // handle with dialog
-    this.editTask.emit(this.task);
-  }
+  @Output() openEditDialog = new EventEmitter<Task>();
 
   onDeleteTask() {
     this.deleteTask.emit(this.task);
+  }
+
+  onEditTask() {
+    this.openEditDialog.emit(this.task);
   }
 }

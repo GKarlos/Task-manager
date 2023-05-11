@@ -1,5 +1,5 @@
 <app-task-list
-  (addTask)="handleAddTask($event)"
+  (openAddDialog)="openTaskDialog()"
   (deleteTask)="handleDeleteTask($event)"
   [taskList]="tasks"
 >
@@ -8,6 +8,6 @@
 <app-task-details
   *ngFor="let task of tasks"
   [task]="task"
-  (editTask)="handleEditTask($event)"
+  (openEditDialog)="openTaskDialog(task)"
   (deleteTask)="handleDeleteTask($event)"
 ></app-task-details>
