@@ -16,22 +16,30 @@ export class TaskItemComponent {
   }
   set task(value: Task) {
     this._task = value;
-    this.isExpanded = this._task ? this._task.isExpanded : false;
     this.isComplete = this._task ? this._task.isComplete : false;
   }
 
   @Output() deleteTask = new EventEmitter<Task>();
+  @Output() selectTask = new EventEmitter<Task>();
 
-  isExpanded = false;
-  isComplete = false;
+  isComplete: boolean = false;
+  hovering: boolean = false;
 
   constructor(public dialog: MatDialog) {}
 
-  toggleExpansion() {
-    this.isExpanded = !this.isExpanded;
-  }
-
   onDeleteTask(): void {
     this.deleteTask.emit(this.task);
+  }
+
+  onSelectTask() {
+    this.selectTask.emit(this.task);
+  }
+
+  onMouseOver(): void {
+    this.hovering = true;
+  }
+
+  onMouseOut(): void {
+    this.hovering = false;
   }
 }
