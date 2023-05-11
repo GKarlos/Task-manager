@@ -35,7 +35,7 @@ describe('TaskBoardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should update a task in the task list when handleEditTask is called', () => {
+  it('should update a task in the tasks list when handleEditTask is called', () => {
     component.tasks = testTaskList;
 
     const updatedTask: Task = {
@@ -51,7 +51,7 @@ describe('TaskBoardComponent', () => {
     expect(component.tasks[0]).toEqual(updatedTask);
   });
 
-  it('should not modify the task list when handleEditTask is called with an invalid task', () => {
+  it('should not modify the tasks list when handleEditTask is called with an invalid task', () => {
     const initialTaskList: Task[] = testTaskList;
 
     component.tasks = [...initialTaskList];
@@ -85,7 +85,7 @@ describe('TaskBoardComponent', () => {
     expect(component.selectedTasks).toEqual([]);
   });
 
-  it('should not modify the task list when handleDeleteTask is called with an invalid task', () => {
+  it('should not modify the tasks list when handleDeleteTask is called with an invalid task', () => {
     const initialTaskList = testTaskList;
 
     component.tasks = [...initialTaskList];
@@ -95,7 +95,7 @@ describe('TaskBoardComponent', () => {
     expect(component.tasks).toEqual(initialTaskList);
   });
 
-  it('should add a task to the task list when handleAddTask is called', () => {
+  it('should add a task to the tasks list when handleAddTask is called', () => {
     component.tasks = [...testTaskList];
 
     const newTask: Task = {
@@ -110,6 +110,15 @@ describe('TaskBoardComponent', () => {
 
     expect(component.tasks.length).toBe(3);
     expect(component.tasks).toContain(newTask);
+  });
+
+  it('should not add a task to the tasks list when handleAddTask is called with an already existing task', () => {
+    const initialTaskList = [TEST_TASK];
+    component.tasks = initialTaskList;
+
+    component.handleAddTask(TEST_TASK);
+
+    expect(component.tasks).toEqual(initialTaskList);
   });
   it('should call openTaskDialog with the correct parameters for adding and editing tasks', () => {
     spyOn(component, 'openTaskDialog').and.callFake((task?: Task) => {

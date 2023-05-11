@@ -16,7 +16,10 @@ export class TaskBoardComponent {
   constructor(public dialog: MatDialog) {}
 
   handleAddTask(task: Task) {
-    this.tasks.push(task);
+    const existingTask = this.selectedTasks.find((t) => t.id === task.id);
+    if (!existingTask) {
+      this.tasks.push(task);
+    }
   }
 
   handleEditTask(task: Task) {
