@@ -80,9 +80,9 @@ describe('TaskBoardComponent', () => {
     expect(component.tasks).not.toContain(taskToDelete);
     expect(component.tasks).toEqual(testTaskList);
 
-    expect(component.tasks.length).toBe(0);
-    expect(component.tasks).not.toContain(taskToDelete);
-    expect(component.tasks).toEqual([]);
+    expect(component.selectedTasks.length).toBe(0);
+    expect(component.selectedTasks).not.toContain(taskToDelete);
+    expect(component.selectedTasks).toEqual([]);
   });
 
   it('should not modify the task list when handleDeleteTask is called with an invalid task', () => {

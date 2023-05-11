@@ -84,6 +84,6 @@ describe('TaskListComponent', () => {
 
     component.onSelectTask(selectedTask);
 
-    expect(component.deleteTask.emit).toHaveBeenCalledWith(testTask);
+    expect(component.selectTask.emit).toHaveBeenCalledWith(testTask);
   });
 });
