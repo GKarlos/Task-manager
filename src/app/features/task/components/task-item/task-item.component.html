@@ -1,30 +1,24 @@
 <ng-container *ngIf="task">
-  <div class="task-item">
+  <div class="task-item" [ngClass]="{ hovered: hovering }">
     <header>
       <div class="actions">
-        <mat-icon
-          data-testid="task-expand"
-          class="icon mr-auto"
-          (click)="toggleExpansion()"
-          >{{
-            isExpanded ? "keyboard_arrow_up" : "keyboard_arrow_down"
-          }}</mat-icon
-        >
         <input
           data-testid="task-checkbox"
           type="checkbox"
-          class="icon"
+          class="icon ml-auto"
           [(ngModel)]="isComplete"
         />
         <mat-icon class="icon" (click)="onDeleteTask()">delete</mat-icon>
       </div>
     </header>
-    <div class="content">
+    <div
+      class="content"
+      (click)="onSelectTask()"
+      (mouseover)="onMouseOver()"
+      (mouseout)="onMouseOut()"
+    >
       <p data-testid="task-title" class="ft-medium">
         {{ task.title }}
-      </p>
-      <p *ngIf="isExpanded" data-testid="task-description" class="ft-small">
-        {{ task.description }}
       </p>
     </div>
   </div>

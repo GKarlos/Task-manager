@@ -48,26 +48,6 @@ describe('TaskItemComponent', () => {
     expect(component.deleteTask.emit).toHaveBeenCalledWith(component.task);
   });
 
-  it('should render the description when it is isExpanded', () => {
-    component.isExpanded = true;
-    fixture.detectChanges();
-
-    const description = fixture.debugElement.query(
-      By.css('[data-testid="task-description"]')
-    );
-    expect(description).toBeTruthy();
-  });
-
-  it('should not render the description when it is not isExpanded', () => {
-    component.isExpanded = false;
-    fixture.detectChanges();
-
-    const description = fixture.debugElement.query(
-      By.css('[data-testid="task-description"]')
-    );
-    expect(description).toBeFalsy();
-  });
-
   it('should change completion status when the checkbox is clicked', () => {
     fixture.detectChanges();
     const checkbox = fixture.debugElement.query(
@@ -78,13 +58,11 @@ describe('TaskItemComponent', () => {
     expect(component.isComplete).toBe(!completionStatus);
   });
 
-  it('should change expansion status when the expand arrow is clicked', () => {
-    fixture.detectChanges();
-    const expandArrow = fixture.debugElement.query(
-      By.css('[data-testid="task-expand"]')
-    ).nativeElement;
-    const expansionStatus = component.task.isExpanded;
-    expandArrow.click();
-    expect(component.isExpanded).toBe(!expansionStatus);
+  it('should emit selectTask with the correct data when onSelectTask is called', () => {
+    spyOn(component.selectTask, 'emit');
+
+    component.onSelectTask();
+
+    expect(component.deleteTask.emit).toHaveBeenCalledWith(TEST_TASK);
   });
 });
