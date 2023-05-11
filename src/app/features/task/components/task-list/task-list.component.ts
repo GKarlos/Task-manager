@@ -10,8 +10,13 @@ export class TaskListComponent {
   @Input() taskList: Task[] = [];
   @Output() deleteTask = new EventEmitter<Task>();
   @Output() openAddDialog = new EventEmitter<void>();
+  @Output() selectTask = new EventEmitter<Task>();
 
   onDeleteTask(task: Task) {
     this.deleteTask.emit(task);
+  }
+
+  onSelectTask(task: Task) {
+    this.selectTask.emit(task);
   }
 }

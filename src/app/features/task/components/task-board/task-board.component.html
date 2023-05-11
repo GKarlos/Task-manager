@@ -1,4 +1,5 @@
 <app-task-list
+  (selectTask)="onTaskSelected($event)"
   (openAddDialog)="openTaskDialog()"
   (deleteTask)="handleDeleteTask($event)"
   [taskList]="tasks"
@@ -6,7 +7,7 @@
 </app-task-list>
 
 <app-task-details
-  *ngFor="let task of tasks"
+  *ngFor="let task of selectedTasks"
   [task]="task"
   (openEditDialog)="openTaskDialog(task)"
   (deleteTask)="handleDeleteTask($event)"

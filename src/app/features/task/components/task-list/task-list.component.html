@@ -13,6 +13,7 @@
       *ngFor="let task of taskList"
       [task]="task"
       (deleteTask)="onDeleteTask($event)"
+      (click)="onSelectTask(task)"
     ></app-task-item>
   </div>
 </div>

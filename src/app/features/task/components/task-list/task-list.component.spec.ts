@@ -76,4 +76,14 @@ describe('TaskListComponent', () => {
 
     expect(component.deleteTask.emit).toHaveBeenCalledWith(testTask);
   });
+
+  it('should emit selectTask with the correct data when onSelectTask is called', () => {
+    const selectedTask = testTask;
+
+    spyOn(component.selectTask, 'emit');
+
+    component.onSelectTask(selectedTask);
+
+    expect(component.deleteTask.emit).toHaveBeenCalledWith(testTask);
+  });
 });

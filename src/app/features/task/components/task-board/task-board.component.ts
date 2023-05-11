@@ -11,6 +11,7 @@ import { TaskFormComponent } from '@task/components/task-form/task-form.componen
 })
 export class TaskBoardComponent {
   tasks: Task[] = [TEST_TASK];
+  selectedTasks: Task[] = [];
 
   constructor(public dialog: MatDialog) {}
 
@@ -26,9 +27,13 @@ export class TaskBoardComponent {
   }
 
   handleDeleteTask(task: Task) {
-    const taskIndex = this.tasks.findIndex((t) => t.id === task.id);
+    let taskIndex = this.tasks.findIndex((t) => t.id === task.id);
     if (taskIndex >= 0) {
       this.tasks.splice(taskIndex, 1);
+    }
+    taskIndex = this.selectedTasks.findIndex((t) => t.id === task.id);
+    if (taskIndex >= 0) {
+      this.selectedTasks.splice(taskIndex, 1);
     }
   }
 
@@ -46,5 +51,11 @@ export class TaskBoardComponent {
         }
       }
     });
+  }
+  onTaskSelected(task: Task) {
+    const existingTask = this.selectedTasks.find((t) => t.id === task.id);
+    if (!existingTask) {
+      this.selectedTasks.push(task);
+    }
   }
 }
