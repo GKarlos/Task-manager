@@ -63,6 +63,6 @@ describe('TaskItemComponent', () => {
 
     component.onSelectTask();
 
-    expect(component.deleteTask.emit).toHaveBeenCalledWith(TEST_TASK);
+    expect(component.selectTask.emit).toHaveBeenCalledWith(TEST_TASK);
   });
 });
