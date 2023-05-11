@@ -69,16 +69,20 @@ describe('TaskBoardComponent', () => {
     expect(component.tasks).toEqual(initialTaskList);
   });
 
-  it('should delete a task from the task list when handleDeleteTask is called', () => {
+  it('should delete a task from the tasks and selected tasks list when handleDeleteTask is called', () => {
     const taskToDelete = testTask;
 
-    component.tasks = [...testTaskList, testTask] as Task[];
-
+    component.tasks = [...testTaskList, taskToDelete] as Task[];
+    component.selectedTasks = [taskToDelete];
     component.handleDeleteTask(taskToDelete);
 
     expect(component.tasks.length).toBe(2);
     expect(component.tasks).not.toContain(taskToDelete);
     expect(component.tasks).toEqual(testTaskList);
+
+    expect(component.tasks.length).toBe(0);
+    expect(component.tasks).not.toContain(taskToDelete);
+    expect(component.tasks).toEqual([]);
   });
 
   it('should not modify the task list when handleDeleteTask is called with an invalid task', () => {
