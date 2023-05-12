@@ -9,6 +9,8 @@
 <app-task-details
   *ngFor="let task of selectedTasks"
   [task]="task"
+  [zIndex]="zIndexes[task.id]"
   (openEditDialog)="openTaskDialog(task)"
   (deleteTask)="handleDeleteTask($event)"
+  (focus)="onTaskSelected(task)"
 ></app-task-details>

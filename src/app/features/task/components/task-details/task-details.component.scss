@@ -2,7 +2,7 @@
 
 $container-background: #eaecee;
 
-.task-details-container {
+.task-details {
   width: 25vw;
   max-height: 70vh;
   overflow-y: auto;
@@ -12,7 +12,7 @@ $container-background: #eaecee;
   padding: 1rem;
   border-radius: 0.5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
+  position: relative;
   header {
     display: flex;
     align-items: center;
