@@ -70,4 +70,13 @@ describe('TaskDetailsComponent', () => {
 
     expect(component.focus.emit).toHaveBeenCalled();
   });
+
+  it('should emit closeTask event when close button is clicked', () => {
+    spyOn(component.closeTask, 'emit');
+    const closeButton = fixture.debugElement.query(
+      By.css('[data-testid="task-close"]')
+    );
+    closeButton.triggerEventHandler('click', null);
+    expect(component.closeTask.emit).toHaveBeenCalledWith(component.task);
+  });
 });
