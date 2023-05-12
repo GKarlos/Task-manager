@@ -11,6 +11,7 @@ export class TaskDetailsComponent {
   @Input() zIndex = 0;
   @Output() deleteTask = new EventEmitter<Task>();
   @Output() openEditDialog = new EventEmitter<Task>();
+  @Output() closeTask = new EventEmitter<Task>();
   @Output() focus = new EventEmitter<void>();
 
   onDeleteTask() {
@@ -19,6 +20,10 @@ export class TaskDetailsComponent {
 
   onEditTask() {
     this.openEditDialog.emit(this.task);
+  }
+
+  onCloseTask() {
+    this.closeTask.emit(this.task);
   }
 
   onClick() {

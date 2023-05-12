@@ -12,5 +12,6 @@
   [zIndex]="zIndexes[task.id]"
   (openEditDialog)="openTaskDialog(task)"
   (deleteTask)="handleDeleteTask($event)"
+  (closeTask)="handleCloseTask($event)"
   (focus)="onTaskSelected(task)"
 ></app-task-details>

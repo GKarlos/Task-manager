@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TEST_TASK } from '@task/constants/task-testing.constants';
 import { Task } from '@task/models/task';
@@ -15,6 +15,13 @@ export class TaskBoardComponent {
   zIndexes: { [key: string]: number } = {};
   focusedTask?: Task;
 
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent): void {
+    if (event.key === 'Escape' && this.focusedTask) {
+      this.handleCloseTask(this.focusedTask);
+    }
+  }
+
   constructor(public dialog: MatDialog) {}
 
   handleAddTask(task: Task) {
@@ -25,21 +32,28 @@ export class TaskBoardComponent {
   }
 
   handleEditTask(editedTask: Task) {
-    const taskIndex = this.tasks.findIndex((task) => task.id === editedTask.id);
+    const taskIndex = this.findTaskIndexByIdInArray(editedTask.id, this.tasks);
     if (taskIndex >= 0) {
       Object.assign(this.tasks[taskIndex], editedTask);
     }
   }
 
-  handleDeleteTask(task: Task) {
-    let taskIndex = this.tasks.findIndex((t) => t.id === task.id);
-    if (taskIndex >= 0) {
-      this.tasks.splice(taskIndex, 1);
-    }
-    taskIndex = this.selectedTasks.findIndex((t) => t.id === task.id);
+  handleCloseTask(task: Task) {
+    const taskIndex = this.findTaskIndexByIdInArray(
+      task.id,
+      this.selectedTasks
+    );
     if (taskIndex >= 0) {
       this.selectedTasks.splice(taskIndex, 1);
     }
+  }
+
+  handleDeleteTask(task: Task) {
+    let taskIndex = this.findTaskIndexByIdInArray(task.id, this.tasks);
+    if (taskIndex >= 0) {
+      this.tasks.splice(taskIndex, 1);
+    }
+    this.handleCloseTask(task);
   }
 
   openTaskDialog(task?: Task) {
@@ -77,5 +91,9 @@ export class TaskBoardComponent {
       this.zIndexes[task.id] =
         this.zIndexes[task.id] - 1 < 0 ? 0 : this.zIndexes[task.id] - 1;
     });
+  }
+
+  private findTaskIndexByIdInArray(taskId: string, taskArray: Task[]): number {
+    return taskArray.findIndex((task) => task.id === taskId);
   }
 }

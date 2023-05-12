@@ -194,4 +194,12 @@ describe('TaskBoardComponent', () => {
     expect(component.selectedTasks.length).toBe(1);
     expect(component.selectedTasks).toContain(taskToSelect);
   });
+
+  it('should remove the task from selectedTasks when handleCloseTask is called', () => {
+    const taskToClose = testTaskList[0];
+    component.selectedTasks = [...testTaskList];
+    component.handleCloseTask(taskToClose);
+    expect(component.selectedTasks.length).toBe(1);
+    expect(component.selectedTasks).not.toContain(taskToClose);
+  });
 });
