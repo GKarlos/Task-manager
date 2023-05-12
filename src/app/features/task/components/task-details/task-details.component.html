@@ -7,7 +7,12 @@
   (mousedown)="onClick()"
 >
   <header>
-    <h1 data-testid="task-title">{{ task.title }}</h1>
+    <h1 *ngIf="!editMode" data-testid="task-title">{{ task.title }}</h1>
+    <input
+      *ngIf="editMode"
+      [(ngModel)]="task.title"
+      data-testid="task-title-input"
+    />
     <div class="actions">
       <mat-icon data-testid="task-edit" (click)="onEditTask()">edit</mat-icon>
       <mat-icon data-testid="task-delete" (click)="onDeleteTask()"
@@ -19,6 +24,14 @@
     </div>
   </header>
   <div class="task-description">
-    <p data-testid="task-description">{{ task.description }}</p>
+    <p *ngIf="!editMode" data-testid="task-description">
+      {{ task.description }}
+    </p>
+    <input
+      *ngIf="editMode"
+      [(ngModel)]="task.description"
+      data-testid="task-description-input"
+    />
   </div>
+  <button *ngIf="editMode" (click)="saveTask()">Save</button>
 </div>
