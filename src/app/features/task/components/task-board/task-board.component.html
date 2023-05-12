@@ -6,12 +6,13 @@
 >
 </app-task-list>
 
-<app-task-details
-  *ngFor="let task of selectedTasks"
-  [task]="task"
-  [zIndex]="zIndexes[task.id]"
-  (openEditDialog)="openTaskDialog(task)"
-  (deleteTask)="handleDeleteTask($event)"
-  (closeTask)="handleCloseTask($event)"
-  (focus)="onTaskSelected(task)"
-></app-task-details>
+<div class="task-details-container" *ngFor="let task of selectedTasks">
+  <app-task-details
+    [task]="task"
+    [zIndex]="zIndexes[task.id]"
+    (openEditDialog)="openTaskDialog(task)"
+    (deleteTask)="handleDeleteTask($event)"
+    (closeTask)="handleCloseTask($event)"
+    (focus)="onTaskSelected(task)"
+  ></app-task-details>
+</div>
