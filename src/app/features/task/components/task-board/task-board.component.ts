@@ -31,6 +31,13 @@ export class TaskBoardComponent {
     }
   }
 
+  handleSaveTask(task: Task) {
+    const taskIndex = this.findTaskIndexByIdInArray(task.id, this.tasks);
+    if (taskIndex >= 0) {
+      Object.assign(this.tasks[taskIndex], task);
+    }
+  }
+
   handleEditTask(editedTask: Task) {
     const taskIndex = this.findTaskIndexByIdInArray(editedTask.id, this.tasks);
     if (taskIndex >= 0) {

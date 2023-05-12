@@ -13,13 +13,21 @@ export class TaskDetailsComponent {
   @Output() openEditDialog = new EventEmitter<Task>();
   @Output() closeTask = new EventEmitter<Task>();
   @Output() focus = new EventEmitter<void>();
+  @Output() save = new EventEmitter<Task>();
+
+  editMode: boolean = false;
+
+  saveTask() {
+    this.save.emit(this.task);
+    this.toggleEditMode();
+  }
 
   onDeleteTask() {
     this.deleteTask.emit(this.task);
   }
 
   onEditTask() {
-    this.openEditDialog.emit(this.task);
+    this.toggleEditMode();
   }
 
   onCloseTask() {
@@ -28,5 +36,9 @@ export class TaskDetailsComponent {
 
   onClick() {
     this.focus.emit();
+  }
+
+  toggleEditMode() {
+    this.editMode = !this.editMode;
   }
 }

@@ -10,7 +10,7 @@
   <app-task-details
     [task]="task"
     [zIndex]="zIndexes[task.id]"
-    (openEditDialog)="openTaskDialog(task)"
+    (save)="handleSaveTask($event)"
     (deleteTask)="handleDeleteTask($event)"
     (closeTask)="handleCloseTask($event)"
     (focus)="onTaskSelected(task)"
