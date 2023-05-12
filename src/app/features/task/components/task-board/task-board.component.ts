@@ -12,6 +12,8 @@ import { TaskFormComponent } from '@task/components/task-form/task-form.componen
 export class TaskBoardComponent {
   tasks: Task[] = [TEST_TASK];
   selectedTasks: Task[] = [];
+  zIndexes: { [key: string]: number } = {};
+  focusedTask?: Task;
 
   constructor(public dialog: MatDialog) {}
 
@@ -60,5 +62,20 @@ export class TaskBoardComponent {
     if (!existingTask) {
       this.selectedTasks.push(task);
     }
+    this.focusTask(task);
+  }
+
+  focusTask(task: Task) {
+    if (this.focusedTask?.id === task.id) return;
+    this.decreaseZIndexes();
+    this.zIndexes[task.id] = this.selectedTasks.length;
+    this.focusedTask = task;
+  }
+
+  decreaseZIndexes() {
+    this.selectedTasks.forEach((task) => {
+      this.zIndexes[task.id] =
+        this.zIndexes[task.id] - 1 < 0 ? 0 : this.zIndexes[task.id] - 1;
+    });
   }
 }

@@ -59,4 +59,15 @@ describe('TaskDetailsComponent', () => {
       component.task.description
     );
   });
+
+  it('should emit the focus event when the component is clicked', () => {
+    const taskDetails = fixture.debugElement.query(
+      By.css('[data-testid="task-details"]')
+    ).nativeElement;
+
+    spyOn(component.focus, 'emit');
+    taskDetails.dispatchEvent(new MouseEvent('mousedown'));
+
+    expect(component.focus.emit).toHaveBeenCalled();
+  });
 });

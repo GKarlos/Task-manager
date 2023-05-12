@@ -157,4 +157,37 @@ describe('TaskBoardComponent', () => {
     dialogRefSpy.close();
     expect(component.handleEditTask).toHaveBeenCalledWith(testTask);
   });
+
+  it('should add task to selectedTasks and focus it when onTaskSelected is called', () => {
+    const taskToSelect = testTaskList[0];
+    component.onTaskSelected(taskToSelect);
+    expect(component.selectedTasks).toContain(taskToSelect);
+    expect(component.focusedTask).toEqual(taskToSelect);
+    expect(component.zIndexes[taskToSelect.id]).toBe(1);
+
+    const taskToSelect1 = testTaskList[0];
+    const taskToSelect2 = testTaskList[1];
+
+    component.onTaskSelected(taskToSelect1);
+    expect(component.selectedTasks).toContain(taskToSelect1);
+    expect(component.focusedTask).toEqual(taskToSelect1);
+    expect(component.zIndexes[taskToSelect1.id]).toBe(1);
+
+    component.onTaskSelected(taskToSelect2);
+    expect(component.selectedTasks).toContain(taskToSelect2);
+    expect(component.zIndexes[taskToSelect1.id]).toBe(0);
+    expect(component.zIndexes[taskToSelect2.id]).toBe(2);
+
+    component.onTaskSelected(taskToSelect1);
+    expect(component.zIndexes[taskToSelect1.id]).toBe(2);
+    expect(component.zIndexes[taskToSelect2.id]).toBe(1);
+  });
+
+  it('should not add task to selectedTasks when onTaskSelected is called with an already existing task', () => {
+    const taskToSelect = testTaskList[0];
+    component.selectedTasks = [taskToSelect];
+    component.onTaskSelected(taskToSelect);
+    expect(component.selectedTasks.length).toBe(1);
+    expect(component.selectedTasks).toContain(taskToSelect);
+  });
 });

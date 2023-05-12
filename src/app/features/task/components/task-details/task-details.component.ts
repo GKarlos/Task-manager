@@ -8,8 +8,10 @@ import { Task } from '@task/models/task';
 })
 export class TaskDetailsComponent {
   @Input() task!: Task;
+  @Input() zIndex = 0;
   @Output() deleteTask = new EventEmitter<Task>();
   @Output() openEditDialog = new EventEmitter<Task>();
+  @Output() focus = new EventEmitter<void>();
 
   onDeleteTask() {
     this.deleteTask.emit(this.task);
@@ -17,5 +19,9 @@ export class TaskDetailsComponent {
 
   onEditTask() {
     this.openEditDialog.emit(this.task);
+  }
+
+  onClick() {
+    this.focus.emit();
   }
 }

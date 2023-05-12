@@ -30,8 +30,6 @@ describe('TaskItemComponent', () => {
   });
 
   it('should display the task title', () => {
-    fixture.detectChanges();
-
     const taskContentElement = fixture.debugElement.query(
       By.css('[data-testid="task-title"]')
     ).nativeElement;
@@ -49,7 +47,6 @@ describe('TaskItemComponent', () => {
   });
 
   it('should change completion status when the checkbox is clicked', () => {
-    fixture.detectChanges();
     const checkbox = fixture.debugElement.query(
       By.css('[data-testid="task-checkbox"]')
     ).nativeElement;
