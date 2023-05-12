@@ -35,8 +35,9 @@ describe('TaskBoardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should update a task in the tasks list when handleEditTask is called', () => {
+  it('should update the task in all lists related to tasks when handleEditTask is called', () => {
     component.tasks = testTaskList;
+    component.selectedTasks = testTaskList;
 
     const updatedTask: Task = {
       id: '1',
@@ -49,9 +50,10 @@ describe('TaskBoardComponent', () => {
     component.handleEditTask(updatedTask);
 
     expect(component.tasks[0]).toEqual(updatedTask);
+    expect(component.selectedTasks[0]).toEqual(updatedTask);
   });
 
-  it('should not modify the tasks list when handleEditTask is called with an invalid task', () => {
+  it('should not modify the tasks in all lists related to tasks when handleEditTask is called with an invalid task', () => {
     const initialTaskList: Task[] = testTaskList;
 
     component.tasks = [...initialTaskList];
@@ -67,6 +69,7 @@ describe('TaskBoardComponent', () => {
     component.handleEditTask(nonExistentTask);
 
     expect(component.tasks).toEqual(initialTaskList);
+    expect(component.selectedTasks).toEqual(initialTaskList);
   });
 
   it('should delete a task from the tasks and selected tasks list when handleDeleteTask is called', () => {
