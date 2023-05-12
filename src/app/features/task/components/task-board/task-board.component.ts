@@ -24,10 +24,10 @@ export class TaskBoardComponent {
     }
   }
 
-  handleEditTask(task: Task) {
-    const taskIndex = this.tasks.findIndex((t) => t.id === task.id);
+  handleEditTask(editedTask: Task) {
+    const taskIndex = this.tasks.findIndex((task) => task.id === editedTask.id);
     if (taskIndex >= 0) {
-      this.tasks[taskIndex] = task;
+      Object.assign(this.tasks[taskIndex], editedTask);
     }
   }
 
