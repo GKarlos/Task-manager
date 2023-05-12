@@ -57,6 +57,7 @@ describe('TaskBoardComponent', () => {
     const initialTaskList: Task[] = testTaskList;
 
     component.tasks = [...initialTaskList];
+    component.selectedTasks = [...initialTaskList];
 
     const nonExistentTask: Task = {
       id: '3',
