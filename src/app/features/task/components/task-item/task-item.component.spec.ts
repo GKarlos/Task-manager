@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { TaskItemComponent } from './task-item.component';
 import { TaskModule } from '@task/task.module';
 import { MatDialog } from '@angular/material/dialog';
-import { TEST_TASK } from '@task/constants/task-testing.constants';
+import { TEST_TASK } from '@task/constants/task.constants';
 
 describe('TaskItemComponent', () => {
   let component: TaskItemComponent;

@@ -3,7 +3,7 @@ import { TaskDetailsComponent } from './task-details.component';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { TEST_TASK } from '@task/constants/task-testing.constants';
+import { TEST_TASK } from '@task/constants/task.constants';
 import { TaskModule } from '@task/task.module';
 
 describe('TaskDetailsComponent', () => {

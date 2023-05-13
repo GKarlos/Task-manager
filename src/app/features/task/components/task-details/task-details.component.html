@@ -1,4 +1,5 @@
 <div
+  [formGroup]="taskForm"
   class="task-details"
   data-testid="task-details"
   cdkDrag
@@ -10,7 +11,7 @@
     <h1 *ngIf="!editMode" data-testid="task-title">{{ task.title }}</h1>
     <input
       *ngIf="editMode"
-      [(ngModel)]="task.title"
+      formControlName="title"
       data-testid="task-title-input"
     />
     <div class="actions">
@@ -29,7 +30,7 @@
     </p>
     <input
       *ngIf="editMode"
-      [(ngModel)]="task.description"
+      formControlName="description"
       data-testid="task-description-input"
     />
   </div>

@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { TaskBoardComponent } from './task-board.component';
 import { Task } from '@task/models/task';
-import { TEST_TASK } from '@task/constants/task-testing.constants';
+import { TEST_TASK } from '@task/constants/task.constants';
 import { TaskModule } from '@task/task.module';
 
 describe('TaskBoardComponent', () => {

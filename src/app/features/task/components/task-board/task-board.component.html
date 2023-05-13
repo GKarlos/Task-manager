@@ -1,7 +1,7 @@
 <app-task-list
   (selectTask)="onTaskSelected($event)"
-  (openAddDialog)="openTaskDialog()"
   (deleteTask)="handleDeleteTask($event)"
+  (addTask)="handleAddTask()"
   [taskList]="tasks"
 >
 </app-task-list>
@@ -9,6 +9,7 @@
 <div class="task-details-container" *ngFor="let task of selectedTasks">
   <app-task-details
     [task]="task"
+    [editMode]="task.title === ''"
     [zIndex]="zIndexes[task.id]"
     (save)="handleSaveTask($event)"
     (deleteTask)="handleDeleteTask($event)"
