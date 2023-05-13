@@ -9,7 +9,7 @@ import { Task } from '@task/models/task';
 export class TaskListComponent {
   @Input() taskList: Task[] = [];
   @Output() deleteTask = new EventEmitter<Task>();
-  @Output() openAddDialog = new EventEmitter<void>();
+  @Output() addTask = new EventEmitter<void>();
   @Output() selectTask = new EventEmitter<Task>();
 
   onDeleteTask(task: Task) {

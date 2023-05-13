@@ -1,8 +1,7 @@
 import { Component, HostListener } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { TEST_TASK } from '@task/constants/task-testing.constants';
+import { EMPTY_TASK, TEST_TASK } from '@task/constants/task.constants';
 import { Task } from '@task/models/task';
-import { TaskFormComponent } from '@task/components/task-form/task-form.component';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-task-board',
@@ -22,26 +21,22 @@ export class TaskBoardComponent {
     }
   }
 
-  constructor(public dialog: MatDialog) {}
-
-  handleAddTask(task: Task) {
-    const existingTask = this.selectedTasks.find((t) => t.id === task.id);
-    if (!existingTask) {
-      this.tasks.push(task);
-    }
+  handleAddTask() {
+    const newTask = { ...EMPTY_TASK } as Task;
+    newTask.id = uuidv4();
+    this.onTaskSelected(newTask);
   }
 
   handleSaveTask(task: Task) {
-    const taskIndex = this.findTaskIndexByIdInArray(task.id, this.tasks);
+    const taskIndex = this.findTaskIndexByIdInArray(
+      task.id,
+      this.selectedTasks
+    );
+    console.log(taskIndex);
     if (taskIndex >= 0) {
-      Object.assign(this.tasks[taskIndex], task);
-    }
-  }
-
-  handleEditTask(editedTask: Task) {
-    const taskIndex = this.findTaskIndexByIdInArray(editedTask.id, this.tasks);
-    if (taskIndex >= 0) {
-      Object.assign(this.tasks[taskIndex], editedTask);
+      Object.assign(this.selectedTasks[taskIndex], task);
+      if (this.findTaskIndexByIdInArray(task.id, this.tasks) < 0)
+        this.tasks.push(this.selectedTasks[taskIndex]); // Needs to have same reference, can't use task.
     }
   }
 
@@ -63,21 +58,6 @@ export class TaskBoardComponent {
     this.handleCloseTask(task);
   }
 
-  openTaskDialog(task?: Task) {
-    const dialogRef = this.dialog.open(TaskFormComponent, {
-      data: task,
-    });
-
-    dialogRef.afterClosed().subscribe((result: Task | undefined) => {
-      if (result) {
-        if (task) {
-          this.handleEditTask(result);
-        } else {
-          this.handleAddTask(result);
-        }
-      }
-    });
-  }
   onTaskSelected(task: Task) {
     const existingTask = this.selectedTasks.find((t) => t.id === task.id);
     if (!existingTask) {

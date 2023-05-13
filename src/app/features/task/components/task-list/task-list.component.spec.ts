@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 import { Task } from '@task/models/task';
 import { TaskListComponent } from '@task/components/task-list/task-list.component';
 import { TaskModule } from '@task/task.module';
-import { TEST_TASK } from '@task/constants/task-testing.constants';
+import { TEST_TASK } from '@task/constants/task.constants';
 
 describe('TaskListComponent', () => {
   let component: TaskListComponent;
