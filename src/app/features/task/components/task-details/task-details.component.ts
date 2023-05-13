@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Task } from '@task/models/task';
-import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-task-details',

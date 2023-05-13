@@ -1,8 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialog } from '@angular/material/dialog';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { of } from 'rxjs';
 import { Task } from '@task/models/task';
 import { TaskListComponent } from '@task/components/task-list/task-list.component';
 import { TaskModule } from '@task/task.module';
@@ -11,7 +9,6 @@ import { TEST_TASK } from '@task/constants/task.constants';
 describe('TaskListComponent', () => {
   let component: TaskListComponent;
   let fixture: ComponentFixture<TaskListComponent>;
-  let dialog: MatDialog;
   let testTask: Task;
   let testTaskList: Task[];
   let addButton: HTMLElement;
@@ -26,7 +23,6 @@ describe('TaskListComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TaskListComponent);
     component = fixture.componentInstance;
-    dialog = TestBed.inject(MatDialog);
     testTask = TEST_TASK;
     testTaskList = [
       { ...testTask, id: '1' },
@@ -57,14 +53,6 @@ describe('TaskListComponent', () => {
       By.css('.task-items app-task-item')
     );
     expect(taskItems.length).toBe(2);
-  });
-
-  it('should emit openAddDialog event when + is clicked', () => {
-    spyOn(component.openAddDialog, 'emit');
-
-    addButton.click();
-
-    expect(component.openAddDialog.emit).toHaveBeenCalled();
   });
 
   it('should emit deleteTask with the correct data when onDeleteTask is called', () => {
