@@ -28,13 +28,12 @@ describe('TaskDetailsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should emit openEditDialog event when edit button is clicked', () => {
-    spyOn(component.openEditDialog, 'emit');
+  it('should toggle edit mode when edit button is clicked', () => {
     const editButton = fixture.debugElement.query(
       By.css('[data-testid="task-edit"]')
     );
     editButton.triggerEventHandler('click', null);
-    expect(component.openEditDialog.emit).toHaveBeenCalledWith(component.task);
+    expect(component.editMode).toBeTrue();
   });
 
   it('should emit deleteTask event when delete button is clicked', () => {
@@ -78,5 +77,85 @@ describe('TaskDetailsComponent', () => {
     );
     closeButton.triggerEventHandler('click', null);
     expect(component.closeTask.emit).toHaveBeenCalledWith(component.task);
+  });
+
+  it('should update task form when ngOnChanges is called', () => {
+    const updatedTask = {
+      ...TEST_TASK,
+      title: 'Updated Task',
+      description: 'Updated Task Description',
+    };
+    component.task = updatedTask;
+    component.ngOnChanges({
+      task: {
+        currentValue: updatedTask,
+        previousValue: TEST_TASK,
+        firstChange: false,
+        isFirstChange: () => false,
+      },
+    });
+    expect(component.taskForm.value.title).toEqual(updatedTask.title);
+    expect(component.taskForm.value.description).toEqual(
+      updatedTask.description
+    );
+  });
+
+  it('should save the edited task and toggle edit mode when saveTask is called', () => {
+    spyOn(component.save, 'emit');
+    component.editMode = true;
+    fixture.detectChanges();
+
+    const updatedTask = {
+      ...TEST_TASK,
+      title: 'Updated Title',
+      description: 'Updated Description',
+    };
+
+    component.taskForm.patchValue(updatedTask);
+    component.saveTask();
+
+    expect(component.save.emit).toHaveBeenCalledWith(updatedTask);
+    expect(component.editMode).toBe(false);
+  });
+
+  it('should display input fields for title and description when editMode is true', () => {
+    component.editMode = true;
+    fixture.detectChanges();
+
+    const titleInputElement = fixture.debugElement.query(
+      By.css('[data-testid="task-title-input"]')
+    ).nativeElement;
+    const descriptionInputElement = fixture.debugElement.query(
+      By.css('[data-testid="task-description-input"]')
+    ).nativeElement;
+
+    expect(titleInputElement).toBeTruthy();
+    expect(descriptionInputElement).toBeTruthy();
+  });
+
+  it('should not display input fields for title and description when editMode is false', () => {
+    component.editMode = false;
+    fixture.detectChanges();
+
+    const titleInputElement = fixture.debugElement.query(
+      By.css('[data-testid="task-title-input"]')
+    );
+    const descriptionInputElement = fixture.debugElement.query(
+      By.css('[data-testid="task-description-input"]')
+    );
+
+    expect(titleInputElement).toBeNull();
+    expect(descriptionInputElement).toBeNull();
+  });
+
+  it('should call saveTask when Save button is clicked', () => {
+    spyOn(component, 'saveTask');
+    component.editMode = true;
+    fixture.detectChanges();
+
+    const saveButton = fixture.debugElement.query(By.css('button'));
+    saveButton.triggerEventHandler('click', null);
+
+    expect(component.saveTask).toHaveBeenCalled();
   });
 });

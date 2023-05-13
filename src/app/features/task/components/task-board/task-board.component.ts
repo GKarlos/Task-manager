@@ -32,7 +32,6 @@ export class TaskBoardComponent {
       task.id,
       this.selectedTasks
     );
-    console.log(taskIndex);
     if (taskIndex >= 0) {
       Object.assign(this.selectedTasks[taskIndex], task);
       if (this.findTaskIndexByIdInArray(task.id, this.tasks) < 0)

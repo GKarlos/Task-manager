@@ -1,16 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialog } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { TaskBoardComponent } from './task-board.component';
 import { Task } from '@task/models/task';
-import { TEST_TASK } from '@task/constants/task.constants';
+import { EMPTY_TASK, TEST_TASK } from '@task/constants/task.constants';
 import { TaskModule } from '@task/task.module';
 
 describe('TaskBoardComponent', () => {
   let component: TaskBoardComponent;
   let fixture: ComponentFixture<TaskBoardComponent>;
-  let dialog: MatDialog;
   let testTaskList: Task[];
   let testTask: Task;
 
@@ -22,7 +20,6 @@ describe('TaskBoardComponent', () => {
 
     fixture = TestBed.createComponent(TaskBoardComponent);
     component = fixture.componentInstance;
-    dialog = TestBed.inject(MatDialog);
     testTask = TEST_TASK;
     testTaskList = [
       { ...testTask, id: '1' },
@@ -35,7 +32,7 @@ describe('TaskBoardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should update the task in all lists related to tasks when handleEditTask is called', () => {
+  it('should update the task in all lists related to tasks when handleSaveTask is called', () => {
     component.tasks = testTaskList;
     component.selectedTasks = testTaskList;
 
@@ -44,30 +41,37 @@ describe('TaskBoardComponent', () => {
       title: 'Updated Task 1',
       description: 'Updated Task 1 description',
       isComplete: false,
-      isExpanded: false,
     };
 
-    component.handleEditTask(updatedTask);
+    component.handleSaveTask(updatedTask);
 
     expect(component.tasks[0]).toEqual(updatedTask);
     expect(component.selectedTasks[0]).toEqual(updatedTask);
   });
 
-  it('should not modify the tasks in all lists related to tasks when handleEditTask is called with an invalid task', () => {
-    const initialTaskList: Task[] = testTaskList;
+  it('should add the task to tasksList when handleSaveTask is called with a new task', () => {
+    component.tasks = [];
+    component.selectedTasks = [{ ...EMPTY_TASK, id: '1' }];
 
+    const newTask: Task = {
+      id: '1',
+      title: 'New Task',
+      description: 'New Task description',
+      isComplete: false,
+    };
+
+    component.handleSaveTask(newTask);
+
+    expect(component.tasks).toContain(newTask);
+    expect(component.selectedTasks).toContain(newTask);
+  });
+
+  it('should not modify the tasks list when handleSaveTask is called with an invalid task', () => {
+    const initialTaskList = testTaskList;
     component.tasks = [...initialTaskList];
     component.selectedTasks = [...initialTaskList];
 
-    const nonExistentTask: Task = {
-      id: '3',
-      title: 'Non-Existent Task',
-      description: 'Non-Existent Task description',
-      isComplete: false,
-      isExpanded: false,
-    };
-
-    component.handleEditTask(nonExistentTask);
+    component.handleSaveTask(testTask);
 
     expect(component.tasks).toEqual(initialTaskList);
     expect(component.selectedTasks).toEqual(initialTaskList);
@@ -99,67 +103,13 @@ describe('TaskBoardComponent', () => {
     expect(component.tasks).toEqual(initialTaskList);
   });
 
-  it('should add a task to the tasks list when handleAddTask is called', () => {
-    component.tasks = [...testTaskList];
+  it('should add a task to the selected tasks list when handleAddTask is called', () => {
+    component.selectedTasks = [...testTaskList];
 
-    const newTask: Task = {
-      id: '3',
-      title: 'New Task',
-      description: 'New Task description',
-      isComplete: false,
-      isExpanded: false,
-    };
+    component.handleAddTask();
 
-    component.handleAddTask(newTask);
-
-    expect(component.tasks.length).toBe(3);
-    expect(component.tasks).toContain(newTask);
-  });
-
-  it('should not add a task to the tasks list when handleAddTask is called with an already existing task', () => {
-    const initialTaskList = [TEST_TASK];
-    component.tasks = initialTaskList;
-
-    component.handleAddTask(TEST_TASK);
-
-    expect(component.tasks).toEqual(initialTaskList);
-  });
-  it('should call openTaskDialog with the correct parameters for adding and editing tasks', () => {
-    spyOn(component, 'openTaskDialog').and.callFake((task?: Task) => {
-      const dialogRefSpy = jasmine.createSpyObj('MatDialogRef', [
-        'afterClosed',
-        'close',
-      ]);
-      dialogRefSpy.afterClosed.and.returnValue(of(task));
-      return dialogRefSpy;
-    });
-
-    component.openTaskDialog(undefined);
-    expect(component.openTaskDialog).toHaveBeenCalledWith(undefined);
-
-    component.openTaskDialog(testTask);
-    expect(component.openTaskDialog).toHaveBeenCalledWith(testTask);
-  });
-
-  it('should handle the dialog result correctly for adding and editing tasks', () => {
-    spyOn(component, 'handleAddTask');
-    spyOn(component, 'handleEditTask');
-
-    const dialogRefSpy = jasmine.createSpyObj('MatDialogRef', [
-      'afterClosed',
-      'close',
-    ]);
-    spyOn(dialog, 'open').and.returnValue(dialogRefSpy);
-
-    dialogRefSpy.afterClosed.and.returnValue(of(testTask));
-    component.openTaskDialog();
-    dialogRefSpy.close();
-    expect(component.handleAddTask).toHaveBeenCalledWith(testTask);
-
-    dialogRefSpy.afterClosed.and.returnValue(of(testTask));
-    component.openTaskDialog(testTask);
-    dialogRefSpy.close();
-    expect(component.handleEditTask).toHaveBeenCalledWith(testTask);
+    expect(component.selectedTasks.length).toBe(3);
+    expect(component.selectedTasks[2].title).toEqual('');
   });
 
   it('should add task to selectedTasks and focus it when onTaskSelected is called', () => {
