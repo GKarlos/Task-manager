@@ -3,5 +3,4 @@ export interface Task {
   description: string;
   id: string;
   isComplete: boolean;
-  isExpanded: boolean;
 }
