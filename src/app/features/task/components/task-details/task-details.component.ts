@@ -50,8 +50,8 @@ export class TaskDetailsComponent implements OnChanges {
     }
   }
 
-  //TODO: Add validation
   saveTask() {
+    if (this.taskForm.invalid) return;
     this.save.emit(this.taskForm.value);
     this.toggleEditMode();
   }

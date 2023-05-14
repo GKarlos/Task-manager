@@ -109,7 +109,7 @@ describe('TaskDetailsComponent', () => {
     );
   });
 
-  it('should save the edited task and toggle edit mode when saveTask is called', () => {
+  it('should save the edited task and toggle edit mode when saveTask is called with a valid form', () => {
     spyOn(component.save, 'emit');
     component.editMode = true;
     fixture.detectChanges();
@@ -119,6 +119,11 @@ describe('TaskDetailsComponent', () => {
       title: 'Updated Title',
       description: 'Updated Description',
     };
+
+    component.taskForm.patchValue(EMPTY_TASK);
+    component.saveTask();
+    expect(component.save.emit).not.toHaveBeenCalled();
+    expect(component.editMode).toBe(true);
 
     component.taskForm.patchValue(updatedTask);
     component.saveTask();
