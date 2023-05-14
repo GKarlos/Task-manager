@@ -6,11 +6,14 @@ import { TaskItemComponent } from '@task/components/task-item/task-item.componen
 import { TaskBoardComponent } from '@task/components/task-board/task-board.component';
 import { TaskDetailsComponent } from '@task/components/task-details/task-details.component';
 import { ContainerTaskListComponent } from '@task/containers/container-task/container-task-list.component';
-import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from '@shared/shared.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
@@ -31,6 +34,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatDialogModule,
     SharedModule,
     MatCheckboxModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
     DragDropModule,
   ],
   exports: [ContainerTaskListComponent],

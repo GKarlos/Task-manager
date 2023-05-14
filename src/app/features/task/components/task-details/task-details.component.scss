@@ -5,6 +5,7 @@ $container-background: #eaecee;
 .task-details {
   width: 25vw;
   max-height: 70vh;
+  min-height: 30rem;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -13,27 +14,38 @@ $container-background: #eaecee;
   border-radius: 0.5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: relative;
+  font-size: 1.6rem;
   header {
     display: flex;
     align-items: center;
-
-    h1 {
-      font-size: 1.5rem;
-      margin-right: 1rem;
-    }
 
     .actions {
       margin-left: auto;
       display: flex;
       gap: 1rem;
-
+      margin-bottom: 1rem;
       mat-icon {
         cursor: pointer;
       }
     }
   }
+  .task-title {
+    padding: 16px;
+    margin-top: 2px;
+    margin-bottom: 26px;
+  }
+
+  .task-title-input {
+    width: 100%;
+  }
 
   .task-description {
-    margin-top: 1rem;
+    padding: 16px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  .task-description-input {
+    width: 100%;
   }
 }
