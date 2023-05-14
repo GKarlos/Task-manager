@@ -8,13 +8,8 @@
   (mousedown)="onClick()"
 >
   <header>
-    <h1 *ngIf="!editMode" data-testid="task-title">{{ task.title }}</h1>
-    <input
-      *ngIf="editMode"
-      formControlName="title"
-      data-testid="task-title-input"
-    />
     <div class="actions">
+      <!--TODO: hide on editing, deal with various editing cases-->
       <mat-icon data-testid="task-edit" (click)="onEditTask()">edit</mat-icon>
       <mat-icon data-testid="task-delete" (click)="onDeleteTask()"
         >delete</mat-icon
@@ -24,15 +19,56 @@
       >
     </div>
   </header>
-  <div class="task-description">
-    <p *ngIf="!editMode" data-testid="task-description">
-      {{ task.description }}
-    </p>
-    <input
+  <div>
+    <div
+      *ngIf="!editMode"
+      data-testid="task-title"
+      class="task-title"
+      [innerHTML]="task.title"
+    ></div>
+    <mat-form-field
+      appearance="outline"
       *ngIf="editMode"
-      formControlName="description"
-      data-testid="task-description-input"
-    />
+      class="task-title-input"
+    >
+      <input
+        matInput
+        formControlName="title"
+        data-testid="task-title-input"
+        placeholder="Title"
+      />
+    </mat-form-field>
   </div>
-  <button *ngIf="editMode" (click)="saveTask()">Save</button>
+  <div>
+    <div
+      *ngIf="!editMode"
+      data-testid="task-description"
+      class="task-description"
+      [innerHTML]="task.description"
+    ></div>
+    <mat-form-field
+      appearance="outline"
+      *ngIf="editMode"
+      class="task-description-input"
+    >
+      <textarea
+        matInput
+        formControlName="description"
+        data-testid="task-description-input"
+        placeholder="Description"
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="4"
+        cdkAutosizeMaxRows="8"
+      ></textarea>
+    </mat-form-field>
+  </div>
+  <button
+    *ngIf="editMode"
+    (click)="saveTask()"
+    class="mt-auto"
+    mat-raised-button
+    color="primary"
+  >
+    Save
+  </button>
 </div>
