@@ -152,4 +152,18 @@ describe('TaskBoardComponent', () => {
     expect(component.selectedTasks.length).toBe(1);
     expect(component.selectedTasks).not.toContain(taskToClose);
   });
+
+  it('should close only focused task when handleEscapeKeyPress is called', () => {
+    const taskToSelect1 = testTaskList[0];
+    const taskToSelect2 = testTaskList[1];
+
+    component.onTaskSelected(taskToSelect1);
+    component.onTaskSelected(taskToSelect2);
+
+    component.handleEscapeKeyPress(taskToSelect1);
+    component.handleEscapeKeyPress(taskToSelect2);
+
+    expect(component.selectedTasks).toContain(taskToSelect1);
+    expect(component.selectedTasks).not.toContain(taskToSelect2);
+  });
 });

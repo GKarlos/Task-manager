@@ -14,13 +14,6 @@ export class TaskBoardComponent {
   zIndexes: { [key: string]: number } = {};
   focusedTask?: Task;
 
-  @HostListener('document:keydown', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent): void {
-    if (event.key === 'Escape' && this.focusedTask) {
-      this.handleCloseTask(this.focusedTask);
-    }
-  }
-
   handleAddTask() {
     const newTask = { ...EMPTY_TASK } as Task;
     newTask.id = uuidv4();
@@ -55,6 +48,10 @@ export class TaskBoardComponent {
       this.tasks.splice(taskIndex, 1);
     }
     this.handleCloseTask(task);
+  }
+
+  handleEscapeKeyPress(task: Task) {
+    if (this.focusedTask?.id === task.id) this.handleCloseTask(task);
   }
 
   onTaskSelected(task: Task) {

@@ -158,4 +158,24 @@ describe('TaskDetailsComponent', () => {
 
     expect(component.saveTask).toHaveBeenCalled();
   });
+
+  it('should call onEscapeKeyPress method when Escape key is pressed', () => {
+    spyOn(component, 'onEscapeKeyPress');
+    const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' });
+    component.handleKeyboardEvent(escapeEvent);
+    expect(component.onEscapeKeyPress).toHaveBeenCalled();
+  });
+
+  it('should toggle edit mode when onEscapeKeyPress is called with editMode set to true', () => {
+    component.editMode = true;
+    component.onEscapeKeyPress();
+    expect(component.editMode).toBe(false);
+  });
+
+  it('should emit escapeKeyPress event when onEscapeKeyPress is called with editMode set to false', () => {
+    spyOn(component.escapeKeyPress, 'emit');
+    component.editMode = false;
+    component.onEscapeKeyPress();
+    expect(component.escapeKeyPress.emit).toHaveBeenCalled();
+  });
 });
