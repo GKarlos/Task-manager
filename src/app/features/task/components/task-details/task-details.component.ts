@@ -5,6 +5,7 @@ import {
   Output,
   OnChanges,
   SimpleChanges,
+  HostListener,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -23,7 +24,15 @@ export class TaskDetailsComponent implements OnChanges {
   @Output() closeTask = new EventEmitter<Task>();
   @Output() focus = new EventEmitter<void>();
   @Output() save = new EventEmitter<Task>();
+  @Output() escapeKeyPress = new EventEmitter<void>();
   taskForm: FormGroup;
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      this.onEscapeKeyPress();
+    }
+  }
 
   constructor(private fb: FormBuilder, private sanitizer: DomSanitizer) {
     this.taskForm = this.fb.group({
@@ -60,6 +69,11 @@ export class TaskDetailsComponent implements OnChanges {
 
   onClick() {
     this.focus.emit();
+  }
+
+  onEscapeKeyPress() {
+    if (this.editMode) this.toggleEditMode();
+    else this.escapeKeyPress.emit();
   }
 
   toggleEditMode() {
