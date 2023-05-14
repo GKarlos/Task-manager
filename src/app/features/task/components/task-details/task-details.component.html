@@ -5,6 +5,7 @@
   cdkDrag
   cdkDragBoundary=".container-task-list"
   [ngStyle]="{ 'z-index': zIndex }"
+  [ngClass]="{ focused: focused }"
   (mousedown)="onClick()"
 >
   <header>

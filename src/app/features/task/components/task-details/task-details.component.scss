@@ -49,3 +49,8 @@ $container-background: #eaecee;
     width: 100%;
   }
 }
+
+.focused {
+  border: 1px solid $secondary;
+  box-shadow: 0 0 0 1px $secondary;
+}

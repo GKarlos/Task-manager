@@ -20,6 +20,7 @@ export class TaskDetailsComponent implements OnChanges {
   @Input() task!: Task;
   @Input() zIndex = 0;
   @Input() editMode = false;
+  @Input() focused = false;
   @Output() deleteTask = new EventEmitter<Task>();
   @Output() closeTask = new EventEmitter<Task>();
   @Output() focus = new EventEmitter<void>();
@@ -72,6 +73,7 @@ export class TaskDetailsComponent implements OnChanges {
   }
 
   onEscapeKeyPress() {
+    if (!this.focused) return;
     if (this.editMode) this.toggleEditMode();
     else this.escapeKeyPress.emit();
   }

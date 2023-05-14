@@ -11,6 +11,7 @@
     [task]="task"
     [editMode]="task.title === ''"
     [zIndex]="zIndexes[task.id]"
+    [focused]="task.id === focusedTask?.id"
     (save)="handleSaveTask($event)"
     (deleteTask)="handleDeleteTask($event)"
     (closeTask)="handleCloseTask($event)"
