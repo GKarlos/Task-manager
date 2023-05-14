@@ -1,0 +1,101 @@
+@use "@angular/material" as mat;
+@include mat.core();
+
+$contrast: pink;
+
+$indigo-dye-palette: (
+  50: #e1f4f8,
+  100: #b5e2ed,
+  200: #87cfe1,
+  300: #61bdd6,
+  400: #4aafd0,
+  500: #38a2ca,
+  600: #3095bd,
+  700: #2782ab,
+  800: #247298,
+  900: #1a5376,
+  contrast: (
+    50: $contrast,
+    100: $contrast,
+    200: $contrast,
+    300: $contrast,
+    400: $contrast,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: $contrast,
+    A200: $contrast,
+    A400: white,
+    A700: white,
+  ),
+);
+
+$accent-palette: (
+  50: #fdf7df,
+  100: #faeaaf,
+  200: #f6dc7b,
+  300: #f3d044,
+  400: #f1c40f,
+  500: #f0ba00,
+  600: #f0ac00,
+  700: #f19900,
+  800: #f28800,
+  900: #f26800,
+  contrast: (
+    50: $contrast,
+    100: $contrast,
+    200: $contrast,
+    300: $contrast,
+    400: $contrast,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: $contrast,
+    A200: $contrast,
+    A400: white,
+    A700: white,
+  ),
+);
+$crimson-palette: (
+  50: #ffebef,
+  100: #ffcdc5,
+  200: #f0999f,
+  300: #e77179,
+  400: #f24e58,
+  500: #f83a40,
+  600: #e9313e,
+  700: #d72638,
+  800: #ca1e30,
+  900: #bb0d24,
+  contrast: (
+    50: $contrast,
+    100: $contrast,
+    200: $contrast,
+    300: $contrast,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+  ),
+);
+$custom-primary: mat.define-palette($indigo-dye-palette, 700, 300, 900);
+$custom-accent: mat.define-palette($accent-palette, 300, 100, 500);
+$custom-warn: mat.define-palette($crimson-palette, 700);
+
+$custom-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $custom-primary,
+      accent: $custom-accent,
+      warn: $custom-warn,
+    ),
+  )
+);
+
+@include mat.all-component-themes($custom-theme);

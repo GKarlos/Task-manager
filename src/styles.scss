@@ -1,10 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import "form";
-@import "tipography";
+@import "typography";
 @import "util";
-@import "tamanhos";
 @import "layout";
 @import "colors";
+@import "themes";
 
 html,
 body {
@@ -19,4 +19,8 @@ body {
 
 mat-icon {
   color: $primary;
+}
+
+.mat-mdc-input-element {
+  color: $text !important;
 }
