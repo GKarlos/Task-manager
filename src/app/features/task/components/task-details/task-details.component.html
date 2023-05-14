@@ -9,12 +9,22 @@
 >
   <header>
     <div class="actions">
-      <!--TODO: hide on editing, deal with various editing cases-->
-      <mat-icon data-testid="task-edit" (click)="onEditTask()">edit</mat-icon>
-      <mat-icon data-testid="task-delete" (click)="onDeleteTask()"
+      <mat-icon
+        data-testid="task-edit"
+        (click)="onEditTask()"
+        aria-label="Edit task"
+        >edit</mat-icon
+      >
+      <mat-icon
+        data-testid="task-delete"
+        (click)="onDeleteTask()"
+        aria-label="Delete task"
         >delete</mat-icon
       >
-      <mat-icon data-testid="task-close" (click)="onCloseTask()"
+      <mat-icon
+        data-testid="task-close"
+        (click)="onCloseTask()"
+        aria-label="Close task"
         >close</mat-icon
       >
     </div>
@@ -24,7 +34,7 @@
       *ngIf="!editMode"
       data-testid="task-title"
       class="task-title"
-      [innerHTML]="task.title"
+      [innerHTML]="sanitizeHtml(task.title)"
     ></div>
     <mat-form-field
       appearance="outline"
@@ -40,12 +50,11 @@
     </mat-form-field>
   </div>
   <div>
-    <!--TODO: add safety to innerHTML?-->
     <div
       *ngIf="!editMode"
       data-testid="task-description"
       class="task-description"
-      [innerHTML]="task.description"
+      [innerHTML]="sanitizeHtml(task.description)"
     ></div>
     <mat-form-field
       appearance="outline"
