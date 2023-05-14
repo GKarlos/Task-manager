@@ -3,7 +3,7 @@ import { TaskDetailsComponent } from './task-details.component';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { TEST_TASK } from '@task/constants/task.constants';
+import { EMPTY_TASK, TEST_TASK } from '@task/constants/task.constants';
 import { TaskModule } from '@task/task.module';
 
 describe('TaskDetailsComponent', () => {
@@ -77,6 +77,14 @@ describe('TaskDetailsComponent', () => {
     );
     closeButton.triggerEventHandler('click', null);
     expect(component.closeTask.emit).toHaveBeenCalledWith(component.task);
+  });
+
+  it('should emit the closeTask event when edit mode is turned off with an originally empty task', () => {
+    spyOn(component.closeTask, 'emit');
+    component.task = EMPTY_TASK;
+    component.editMode = true;
+    component.toggleEditMode();
+    expect(component.closeTask.emit).toHaveBeenCalled();
   });
 
   it('should update task form when ngOnChanges is called', () => {

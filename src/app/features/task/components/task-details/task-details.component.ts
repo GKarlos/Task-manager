@@ -77,7 +77,15 @@ export class TaskDetailsComponent implements OnChanges {
   }
 
   toggleEditMode() {
+    this.taskForm.patchValue(this.task);
     this.editMode = !this.editMode;
+
+    if (
+      this.task.title === '' &&
+      this.task.description === '' &&
+      !this.editMode
+    )
+      this.closeTask.emit(this.task);
   }
 
   sanitizeHtml(html: string): SafeHtml {
