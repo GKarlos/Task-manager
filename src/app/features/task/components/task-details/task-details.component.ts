@@ -7,6 +7,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Task } from '@task/models/task';
 
 @Component({
@@ -24,7 +25,7 @@ export class TaskDetailsComponent implements OnChanges {
   @Output() save = new EventEmitter<Task>();
   taskForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private sanitizer: DomSanitizer) {
     this.taskForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
@@ -63,5 +64,9 @@ export class TaskDetailsComponent implements OnChanges {
 
   toggleEditMode() {
     this.editMode = !this.editMode;
+  }
+
+  sanitizeHtml(html: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 }
