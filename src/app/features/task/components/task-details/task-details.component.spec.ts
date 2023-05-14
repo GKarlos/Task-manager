@@ -21,6 +21,7 @@ describe('TaskDetailsComponent', () => {
     fixture = TestBed.createComponent(TaskDetailsComponent);
     component = fixture.componentInstance;
     component.task = TEST_TASK;
+    component.focused = true;
     fixture.detectChanges();
   });
 
@@ -157,6 +158,7 @@ describe('TaskDetailsComponent', () => {
   });
 
   it('should call saveTask when Save button is clicked', () => {
+    component.editMode = true;
     spyOn(component, 'saveTask');
     component.editMode = true;
     fixture.detectChanges();
@@ -168,8 +170,10 @@ describe('TaskDetailsComponent', () => {
   });
 
   it('should call onEscapeKeyPress method when Escape key is pressed', () => {
+    component.focused = true;
     spyOn(component, 'onEscapeKeyPress');
     const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' });
+
     component.handleKeyboardEvent(escapeEvent);
     expect(component.onEscapeKeyPress).toHaveBeenCalled();
   });
