@@ -10,26 +10,17 @@ $container-background: #eaecee;
   display: flex;
   flex-direction: column;
   background-color: $container-background;
-  padding: 1rem;
-  border-radius: 0.5rem;
+  border-radius: 0.3rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: absolute;
+  position: relative;
+  padding: 0;
   top: 20vh;
   left: 20vw;
   font-size: 1.6rem;
-  header {
-    display: flex;
-    align-items: center;
 
-    .actions {
-      margin-left: auto;
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1rem;
-      mat-icon {
-        cursor: pointer;
-      }
-    }
+  .task-details-content {
+    padding: 1rem;
+    margin-top: 3rem;
   }
   .task-title {
     padding: 16px;

@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { taskDetailsEvents } from '@task/constants/task-details-events';
 import { Task } from '@task/models/task';
 
 @Component({
@@ -27,6 +28,12 @@ export class TaskDetailsComponent implements OnChanges {
   @Output() save = new EventEmitter<Task>();
   @Output() escapeKeyPress = new EventEmitter<void>();
   taskForm: FormGroup;
+  taskDetailsEvents = taskDetailsEvents;
+  iconEventHandlers: { [eventName: string]: () => void } = {
+    onEditTask: () => this.onEditTask(),
+    onDeleteTask: () => this.onDeleteTask(),
+    onCloseTask: () => this.onCloseTask(),
+  };
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {
@@ -47,6 +54,15 @@ export class TaskDetailsComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['task']) {
       this.taskForm.patchValue(this.task);
+    }
+  }
+
+  handleIconEvent(event: string) {
+    const handler = this.iconEventHandlers[event];
+    if (handler) {
+      handler();
+    } else {
+      console.log('Unknown event:', event);
     }
   }
 
