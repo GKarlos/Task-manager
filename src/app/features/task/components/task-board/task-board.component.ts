@@ -39,6 +39,17 @@ export class TaskBoardComponent {
     );
     if (taskIndex >= 0) {
       this.selectedTasks.splice(taskIndex, 1);
+      delete this.zIndexes[task.id];
+
+      //change the focused task to the task that has the highest z index, or undefined if there are no tasks
+      if (this.selectedTasks.length === 0) {
+        this.focusedTask = undefined;
+        return;
+      }
+      const highestZIndexTask = this.selectedTasks.reduce((prev, current) =>
+        this.zIndexes[prev.id] > this.zIndexes[current.id] ? prev : current
+      );
+      this.focusedTask = highestZIndexTask;
     }
   }
 
