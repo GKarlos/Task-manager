@@ -1,14 +1,14 @@
 <div class="task-list" cdkDrag cdkDragBoundary=".container-task-list">
-  <div class="task-header">
+  <div class="task-list__header">
     <span data-testid="title" class="ft-big">Task List</span>
     <mat-icon
       data-testid="add-button"
-      class="icon pointer"
+      class="task-list__icon pointer"
       (click)="addTask.emit()"
       >add</mat-icon
     >
   </div>
-  <div class="task-items">
+  <div class="task-list__items">
     <app-task-item
       *ngFor="let task of taskList"
       [task]="task"

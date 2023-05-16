@@ -4,7 +4,7 @@
   data-testid="task-details"
   cdkDrag
   cdkDragBoundary=".container-task-list"
-  [ngClass]="{ 'task-details-focused': focused }"
+  [ngClass]="{ 'task-details--focused': focused }"
   [ngStyle]="{ 'z-index': zIndex }"
   (mousedown)="onClick()"
 >
@@ -14,18 +14,18 @@
     cdkDragHandle
   >
   </app-event-bar>
-  <div class="task-details-content">
+  <div class="task-details__content">
     <div>
       <div
         *ngIf="!editMode"
         data-testid="task-title"
-        class="task-title"
+        class="task-details__title"
         [innerHTML]="sanitizeHtml(task.title)"
       ></div>
       <mat-form-field
         appearance="outline"
         *ngIf="editMode"
-        class="task-title-input"
+        class="task-details__title-input"
       >
         <input
           matInput
@@ -39,13 +39,13 @@
       <div
         *ngIf="!editMode"
         data-testid="task-description"
-        class="task-description"
+        class="task-details__description"
         [innerHTML]="sanitizeHtml(task.description)"
       ></div>
       <mat-form-field
         appearance="outline"
         *ngIf="editMode"
-        class="task-description-input"
+        class="task-details__description-input"
       >
         <textarea
           matInput

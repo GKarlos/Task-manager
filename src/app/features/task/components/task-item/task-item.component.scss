@@ -5,39 +5,39 @@ $highlight-color: darken($background, 10%);
 
 .task-item {
   background-color: $background;
-
   padding: 1rem;
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
   transition: background-color 0.3s ease-in-out;
-}
 
-.task-item.hovered {
-  background-color: $highlight-color;
-}
+  &--hovered {
+    background-color: $highlight-color;
+  }
 
-header {
-  display: flex;
-  align-items: center;
+  &__header {
+    display: flex;
+    align-items: center;
+  }
 
-  .actions {
+  &__actions {
     display: flex;
     width: 100%;
     gap: 0.8rem;
 
-    .icon {
+    .task-item__icon {
       cursor: pointer;
       font-size: $big-font-size;
       size: $big-font-size;
     }
   }
-  margin-bottom: 0.8rem;
-}
 
-.content {
-  word-wrap: break-word;
-  margin-bottom: 0;
-  padding: 0 0.5rem;
-  cursor: pointer;
+  .task-item__content {
+    word-wrap: break-word;
+    margin-bottom: 0;
+    padding: 0 0.5rem;
+    cursor: pointer;
+  }
+
+  margin-bottom: 0.8rem;
 }
