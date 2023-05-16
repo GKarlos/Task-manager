@@ -4,8 +4,8 @@
   data-testid="task-details"
   cdkDrag
   cdkDragBoundary=".container-task-list"
+  [ngClass]="{ 'task-details-focused': focused }"
   [ngStyle]="{ 'z-index': zIndex }"
-  [ngClass]="{ focused: focused }"
   (mousedown)="onClick()"
 >
   <app-event-bar
