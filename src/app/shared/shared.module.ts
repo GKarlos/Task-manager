@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { EventBarComponent } from '@shared/components/title-bar/event-bar.component';
+import { EventBarComponent } from '@shared/components/event-bar/event-bar.component';
 
 @NgModule({
   declarations: [EventBarComponent],
