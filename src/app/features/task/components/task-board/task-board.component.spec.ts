@@ -166,4 +166,19 @@ describe('TaskBoardComponent', () => {
     expect(component.selectedTasks).toContain(taskToSelect1);
     expect(component.selectedTasks).not.toContain(taskToSelect2);
   });
+
+  it('should handle the focused task change correctly when closing tasks', () => {
+    const taskToSelect1 = testTaskList[0];
+    const taskToSelect2 = testTaskList[1];
+
+    component.onTaskSelected(taskToSelect1);
+    component.onTaskSelected(taskToSelect2);
+
+    component.handleCloseTask(taskToSelect1);
+
+    expect(component.focusedTask).toEqual(taskToSelect2);
+
+    component.handleCloseTask(taskToSelect2);
+    expect(component.focusedTask).toBeUndefined();
+  });
 });
