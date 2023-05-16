@@ -43,7 +43,7 @@ $container-background: #eaecee;
   }
 }
 
-.focused {
-  border: 1px solid $secondary;
-  box-shadow: 0 0 0 1px $secondary;
+.task-details-focused {
+  background-color: darken($container-background, 5%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
