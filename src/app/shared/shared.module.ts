@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from '@shared/header/header.component';
-import { FooterComponent } from '@shared/footer/footer.component';
-import { ConfirmDialogComponent } from '@shared/confirm-dialog/confirm-dialog.component';
-import { WindowSizeService } from '@shared/services/window-size.service';
+import { MatIconModule } from '@angular/material/icon';
+import { EventBarComponent } from '@shared/components/title-bar/event-bar.component';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, ConfirmDialogComponent],
-  imports: [CommonModule],
-  providers: [WindowSizeService],
+  declarations: [EventBarComponent],
+  imports: [CommonModule, MatIconModule],
+  exports: [EventBarComponent],
+  providers: [],
 })
 export class SharedModule {}

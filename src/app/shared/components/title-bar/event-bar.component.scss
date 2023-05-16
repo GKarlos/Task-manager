@@ -1,0 +1,24 @@
+@import "colors";
+$background: darken(#eaecee, 20%);
+
+:host {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: $background;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  gap: 0.8rem;
+  .mat-icon {
+    cursor: pointer;
+    &:first-child {
+      margin-left: auto;
+    }
+  }
+}

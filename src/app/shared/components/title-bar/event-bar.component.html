@@ -1,0 +1,5 @@
+<div class="actions">
+  <ng-container *ngFor="let icon of icons" class="ml-auto">
+    <mat-icon (click)="onIconClick(icon.event)">{{ icon.name }}</mat-icon>
+  </ng-container>
+</div>
