@@ -18,32 +18,33 @@ $container-background: #eaecee;
   left: 20vw;
   font-size: 1.6rem;
 
-  .task-details-content {
+  &__content {
     padding: 1rem;
     margin-top: 3rem;
   }
-  .task-title {
+
+  &__title {
     padding: 16px;
     margin-top: 2px;
     margin-bottom: 26px;
   }
 
-  .task-title-input {
+  &__title-input {
     width: 100%;
   }
 
-  .task-description {
+  &__description {
     padding: 16px;
     white-space: pre-wrap;
     word-wrap: break-word;
   }
 
-  .task-description-input {
+  &__description-input {
     width: 100%;
   }
-}
 
-.task-details-focused {
-  background-color: darken($container-background, 5%);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  &--focused {
+    background-color: darken($container-background, 5%);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
 }

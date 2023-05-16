@@ -1,18 +1,20 @@
 <ng-container *ngIf="task">
-  <div class="task-item" [ngClass]="{ hovered: hovering }">
-    <header>
-      <div class="actions">
+  <div class="task-item" [ngClass]="{ 'task-item--hovered': hovering }">
+    <header class="task-item__header">
+      <div class="task-item__actions">
         <input
           data-testid="task-checkbox"
           type="checkbox"
-          class="icon ml-auto"
+          class="task-item__icon ml-auto"
           [(ngModel)]="isComplete"
         />
-        <mat-icon class="icon" (click)="onDeleteTask()">delete</mat-icon>
+        <mat-icon class="task-item__icon" (click)="onDeleteTask()"
+          >delete</mat-icon
+        >
       </div>
     </header>
     <div
-      class="content"
+      class="task-item__content"
       (click)="onSelectTask()"
       (mouseover)="onMouseOver()"
       (mouseout)="onMouseOut()"

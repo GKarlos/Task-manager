@@ -50,7 +50,7 @@ describe('TaskListComponent', () => {
     component.taskList = testTaskList;
     fixture.detectChanges();
     const taskItems = fixture.debugElement.queryAll(
-      By.css('.task-items app-task-item')
+      By.css('.task-list__items app-task-item')
     );
     expect(taskItems.length).toBe(2);
   });
