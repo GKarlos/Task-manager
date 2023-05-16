@@ -29,23 +29,6 @@ describe('TaskDetailsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should toggle edit mode when edit button is clicked', () => {
-    const editButton = fixture.debugElement.query(
-      By.css('[data-testid="task-edit"]')
-    );
-    editButton.triggerEventHandler('click', null);
-    expect(component.editMode).toBeTrue();
-  });
-
-  it('should emit deleteTask event when delete button is clicked', () => {
-    spyOn(component.deleteTask, 'emit');
-    const deleteButton = fixture.debugElement.query(
-      By.css('[data-testid="task-delete"]')
-    );
-    deleteButton.triggerEventHandler('click', null);
-    expect(component.deleteTask.emit).toHaveBeenCalledWith(component.task);
-  });
-
   it('should display the task title and description', () => {
     const titleElement = fixture.debugElement.query(
       By.css('[data-testid="task-title"]')
@@ -69,15 +52,6 @@ describe('TaskDetailsComponent', () => {
     taskDetails.dispatchEvent(new MouseEvent('mousedown'));
 
     expect(component.focus.emit).toHaveBeenCalled();
-  });
-
-  it('should emit closeTask event when close button is clicked', () => {
-    spyOn(component.closeTask, 'emit');
-    const closeButton = fixture.debugElement.query(
-      By.css('[data-testid="task-close"]')
-    );
-    closeButton.triggerEventHandler('click', null);
-    expect(component.closeTask.emit).toHaveBeenCalledWith(component.task);
   });
 
   it('should emit the closeTask event when edit mode is turned off with an originally empty task', () => {
@@ -132,34 +106,32 @@ describe('TaskDetailsComponent', () => {
     expect(component.editMode).toBe(false);
   });
 
-  it('should display input fields for title and description when editMode is true', () => {
+  it('should display input fields for title and description only when editMode is true', () => {
     component.editMode = true;
     fixture.detectChanges();
 
-    const titleInputElement = fixture.debugElement.query(
+    let titleInputElement = fixture.debugElement.query(
       By.css('[data-testid="task-title-input"]')
-    ).nativeElement;
-    const descriptionInputElement = fixture.debugElement.query(
+    )?.nativeElement;
+    let descriptionInputElement = fixture.debugElement.query(
       By.css('[data-testid="task-description-input"]')
-    ).nativeElement;
+    )?.nativeElement;
 
     expect(titleInputElement).toBeTruthy();
     expect(descriptionInputElement).toBeTruthy();
-  });
 
-  it('should not display input fields for title and description when editMode is false', () => {
     component.editMode = false;
     fixture.detectChanges();
 
-    const titleInputElement = fixture.debugElement.query(
+    titleInputElement = fixture.debugElement.query(
       By.css('[data-testid="task-title-input"]')
-    );
-    const descriptionInputElement = fixture.debugElement.query(
+    )?.nativeElement;
+    descriptionInputElement = fixture.debugElement.query(
       By.css('[data-testid="task-description-input"]')
-    );
+    )?.nativeElement;
 
-    expect(titleInputElement).toBeNull();
-    expect(descriptionInputElement).toBeNull();
+    expect(titleInputElement).not.toBeTruthy();
+    expect(descriptionInputElement).not.toBeTruthy();
   });
 
   it('should call saveTask when Save button is clicked', () => {
@@ -194,5 +166,39 @@ describe('TaskDetailsComponent', () => {
     component.editMode = false;
     component.onEscapeKeyPress();
     expect(component.escapeKeyPress.emit).toHaveBeenCalled();
+  });
+
+  it('should handle icon events correctly', () => {
+    spyOn(component, 'onEditTask');
+    spyOn(component, 'onCloseTask');
+    spyOn(component, 'onDeleteTask');
+    for (const eventName in component.iconEventHandlers) {
+      if (component.iconEventHandlers.hasOwnProperty(eventName)) {
+        const handlerFunction = component.iconEventHandlers[eventName];
+        handlerFunction();
+      }
+    }
+
+    expect(component.onEditTask).toHaveBeenCalled();
+    expect(component.onCloseTask).toHaveBeenCalled();
+    expect(component.onDeleteTask).toHaveBeenCalled();
+  });
+
+  it('should save the task with the correct data when Save button is clicked', () => {
+    component.editMode = true;
+    spyOn(component.save, 'emit');
+    component.taskForm.patchValue(TEST_TASK);
+
+    const updatedTask = {
+      ...TEST_TASK,
+      title: 'Updated Title',
+      description: 'Updated Description',
+    };
+
+    component.taskForm.patchValue(updatedTask);
+
+    component.saveTask();
+
+    expect(component.save.emit).toHaveBeenCalledWith(updatedTask);
   });
 });
